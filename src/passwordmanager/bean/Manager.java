@@ -16,9 +16,11 @@
  */
 package passwordmanager.bean;
 
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,19 +28,52 @@ import javax.persistence.Persistence;
  */
 public class Manager {
 
-    public void persist(Object object) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PasswordManagerPU");
-        EntityManager em = emf.createEntityManager();
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("PasswordManagerPU");
+    EntityManager em;
+
+    public boolean persist(Object object) {
+        boolean isPersisted = false;
+        em = emf.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(object);
             em.getTransaction().commit();
+            isPersisted = true;
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
             em.close();
         }
+        return isPersisted;
     }
-    
+
+    public void updateEntity(Object object) {
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(object);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void deleteEntity(Object object) {
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+        if (!em.contains(object)) {
+            object = em.merge(object);
+        }
+        em.remove(object);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public Collection<AccountInfo> findAllAccountInfo() {
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("SELECT e FROM AccountInfo e");
+        Collection<AccountInfo> ai = query.getResultList();
+        em.close();
+        return ai;
+    }
+
 }

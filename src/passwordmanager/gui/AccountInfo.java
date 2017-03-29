@@ -17,7 +17,11 @@
 package passwordmanager.gui;
 
 import java.awt.Image;
+import java.util.Collection;
+import javax.persistence.EntityManager;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import passwordmanager.bean.Manager;
 
 /**
@@ -33,6 +37,7 @@ public class AccountInfo extends javax.swing.JFrame {
         initComponents();
         setButtonIcon();
         clear();
+        populateTable();
     }
 
     /**
@@ -58,13 +63,15 @@ public class AccountInfo extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnGeneratePassword = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        chkZeroToNine = new javax.swing.JCheckBox();
+        chkaToz = new javax.swing.JCheckBox();
+        chkAtoZ = new javax.swing.JCheckBox();
+        chkSpecialChar = new javax.swing.JCheckBox();
+        lblLength = new javax.swing.JLabel();
+        spnrLength = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAccountInfo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,22 +93,37 @@ public class AccountInfo extends javax.swing.JFrame {
         });
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnGeneratePassword.setText("Generate Password");
 
-        jCheckBox1.setText("0-9");
+        chkZeroToNine.setText("0-9");
 
-        jCheckBox2.setText("a-z");
+        chkaToz.setText("a-z");
 
-        jCheckBox3.setText("A-Z");
+        chkAtoZ.setText("A-Z");
 
-        jCheckBox4.setText("Special Char");
+        chkSpecialChar.setText("Special Char");
 
-        jLabel1.setText("Length:");
+        lblLength.setText("Length:");
 
         javax.swing.GroupLayout pnlAccountInfoLayout = new javax.swing.GroupLayout(pnlAccountInfo);
         pnlAccountInfo.setLayout(pnlAccountInfoLayout);
@@ -135,17 +157,17 @@ public class AccountInfo extends javax.swing.JFrame {
                                     .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnlAccountInfoLayout.createSequentialGroup()
-                                        .addComponent(jCheckBox1)
+                                        .addComponent(chkZeroToNine)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox2)
+                                        .addComponent(chkaToz)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox3)
+                                        .addComponent(chkAtoZ)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox4)
+                                        .addComponent(chkSpecialChar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel1)
+                                        .addComponent(lblLength)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnGeneratePassword)))
                                 .addGap(0, 33, Short.MAX_VALUE)))))
@@ -164,12 +186,12 @@ public class AccountInfo extends javax.swing.JFrame {
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox4)
-                    .addComponent(jLabel1)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkZeroToNine)
+                    .addComponent(chkaToz)
+                    .addComponent(chkAtoZ)
+                    .addComponent(chkSpecialChar)
+                    .addComponent(lblLength)
+                    .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGeneratePassword))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -189,17 +211,24 @@ public class AccountInfo extends javax.swing.JFrame {
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Records"));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 752, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 82, Short.MAX_VALUE)
-        );
+        tblAccountInfo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "User Name", "Password", "Type", "URL"
+            }
+        ));
+        tblAccountInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAccountInfoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblAccountInfo);
+
+        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -217,23 +246,90 @@ public class AccountInfo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
-       passwordmanager.bean.AccountInfo accountInfo=new passwordmanager.bean.AccountInfo();
-       //accountInfo.setId(1);
-       accountInfo.setUserName(txtUserName.getText());
-       accountInfo.setPassword(txtPassword.getText());
-       accountInfo.setType(txtType.getText());
-       accountInfo.setWebsite(txtUrl.getText());
-       Manager manager=new Manager();
-       manager.persist(accountInfo);
+        if (txtUserName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter user name!");
+            txtUserName.grabFocus();
+        } else if (txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter password or generate new one!");
+            txtPassword.grabFocus();
+        } else {
+            passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
+            //accountInfo.setId(1);
+            accountInfo.setUserName(txtUserName.getText());
+            accountInfo.setPassword(txtPassword.getText());
+            accountInfo.setType(txtType.getText());
+            accountInfo.setWebsite(txtUrl.getText());
+            Manager manager = new Manager();
+            if (manager.persist(accountInfo)) {
+                clear();
+                populateTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Something went wrong!");
+            }
+
+        }
+
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void tblAccountInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAccountInfoMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblAccountInfo.getModel();
+        txtUserName.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 1).toString());
+        txtPassword.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 2).toString());
+        try{
+           txtType.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 3).toString()); 
+        }catch(NullPointerException npe){
+            
+        }
+        try{
+            txtUrl.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 4).toString());
+        }catch(NullPointerException npe){
+            
+        }
+        
+        updateId=Integer.parseInt(model.getValueAt(tblAccountInfo.getSelectedRow(), 0).toString());
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+        btnDelete.setEnabled(true);
+    }//GEN-LAST:event_tblAccountInfoMouseClicked
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clear();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+         //passwordmanager.bean.AccountInfo accountInfo =  em.find( passwordmanager.bean.AccountInfo.class, 4);
+         //System.out.println(accountInfo.toString());
+         Manager m=new Manager();
+         passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
+         accountInfo.setId(updateId);
+         accountInfo.setPassword(txtPassword.getText());
+         accountInfo.setUserName(txtUserName.getText());
+         accountInfo.setWebsite(txtUrl.getText());
+         accountInfo.setType(txtType.getText());
+         m.updateEntity(accountInfo);
+         clear();
+         populateTable();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+         Manager m=new Manager();
+         passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
+         accountInfo.setId(updateId);
+         //accountInfo.setPassword(txtPassword.getText());
+         //accountInfo.setUserName(txtUserName.getText());
+         //accountInfo.setWebsite(txtUrl.getText());
+         //accountInfo.setType(txtType.getText());
+         m.deleteEntity(accountInfo);
+         clear();
+         populateTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,29 +372,28 @@ public class AccountInfo extends javax.swing.JFrame {
         Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnSave.setIcon(imageIcon);
-        
+
         imageIcon = new ImageIcon("res/update.jpg");
         image = imageIcon.getImage();
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnUpdate.setIcon(imageIcon);
-        
+
         imageIcon = new ImageIcon("res/delete.png");
         image = imageIcon.getImage();
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnDelete.setIcon(imageIcon);
-        
+
         imageIcon = new ImageIcon("res/clear.jpg");
         image = imageIcon.getImage();
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnClear.setIcon(imageIcon);
-        
-        
+
     }
-    
-    private void clear(){
+
+    private void clear() {
         txtUserName.setText("");
         txtPassword.setText("");
         txtType.setText("");
@@ -306,7 +401,21 @@ public class AccountInfo extends javax.swing.JFrame {
         btnSave.setEnabled(true);
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
+        tblAccountInfo.clearSelection();
     }
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblAccountInfo.getModel();
+        model.setNumRows(0);
+        Manager m = new Manager();
+        Collection<passwordmanager.bean.AccountInfo> emps = m.findAllAccountInfo();
+        for (passwordmanager.bean.AccountInfo e : emps) {
+            model.addRow(new Object[]{e.getId(),e.getUserName(), e.getPassword(), e.getType(), e.getWebsite()});
+        }
+
+    }
+    private static int updateId=0;
+    private EntityManager em;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
@@ -314,18 +423,20 @@ public class AccountInfo extends javax.swing.JFrame {
     private javax.swing.JButton btnGeneratePassword;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JCheckBox chkAtoZ;
+    private javax.swing.JCheckBox chkSpecialChar;
+    private javax.swing.JCheckBox chkZeroToNine;
+    private javax.swing.JCheckBox chkaToz;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblLength;
     private javax.swing.JLabel lblType;
     private javax.swing.JLabel lblUrl;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JPanel pnlAccountInfo;
+    private javax.swing.JSpinner spnrLength;
+    private javax.swing.JTable tblAccountInfo;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtType;
     private javax.swing.JTextField txtUrl;
