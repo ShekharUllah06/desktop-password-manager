@@ -56,49 +56,96 @@ public class AccountInfo implements Serializable {
     @Column(name = "website")
     private String website;
 
+    /**
+     *
+     */
     public AccountInfo() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public AccountInfo(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @param type
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getWebsite() {
         return website;
     }
 
+    /**
+     *
+     * @param website
+     */
     public void setWebsite(String website) {
         this.website = website;
     }
