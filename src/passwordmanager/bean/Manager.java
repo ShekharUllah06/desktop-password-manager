@@ -31,6 +31,11 @@ public class Manager {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("PasswordManagerPU");
     EntityManager em;
 
+    /**
+     * This method is for persisting object to database
+     * @param object
+     * @return true if persist else return false
+     */
     public boolean persist(Object object) {
         boolean isPersisted = false;
         em = emf.createEntityManager();
@@ -48,6 +53,10 @@ public class Manager {
         return isPersisted;
     }
 
+    /**
+     * This method is for updating object to database
+     * @param object
+     */
     public void updateEntity(Object object) {
         em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -56,6 +65,10 @@ public class Manager {
         em.close();
     }
 
+    /**
+     * This method is for delete object from database
+     * @param object
+     */
     public void deleteEntity(Object object) {
         em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -67,6 +80,10 @@ public class Manager {
         em.close();
     }
 
+    /**
+     *
+     * @return collection of AccountInfo
+     */
     public Collection<AccountInfo> findAllAccountInfo() {
         em = emf.createEntityManager();
         em.getTransaction().begin();
