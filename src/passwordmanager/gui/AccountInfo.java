@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import passwordmanager.bean.Manager;
+import passwordmanager.util.PasswordGenerator;
 
 /**
  *
@@ -114,6 +115,11 @@ public class AccountInfo extends javax.swing.JFrame {
         });
 
         btnGeneratePassword.setText("Generate Password");
+        btnGeneratePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeneratePasswordActionPerformed(evt);
+            }
+        });
 
         chkZeroToNine.setText("0-9");
 
@@ -330,6 +336,10 @@ public class AccountInfo extends javax.swing.JFrame {
          clear();
          populateTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnGeneratePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneratePasswordActionPerformed
+        txtPassword.setText(PasswordGenerator.genetratePassword());
+    }//GEN-LAST:event_btnGeneratePasswordActionPerformed
 
     /**
      * @param args the command line arguments
