@@ -22,6 +22,6 @@ package passwordmanager.util;
  */
 public class PasswordGenerator {
     public static String genetratePassword(){
-        return "password";
+        return "random password";
     }
 }
