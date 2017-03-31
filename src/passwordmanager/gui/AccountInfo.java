@@ -64,9 +64,9 @@ public class AccountInfo extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnGeneratePassword = new javax.swing.JButton();
-        chkZeroToNine = new javax.swing.JCheckBox();
-        chkaToz = new javax.swing.JCheckBox();
-        chkAtoZ = new javax.swing.JCheckBox();
+        chkNumeric = new javax.swing.JCheckBox();
+        chkLowerCase = new javax.swing.JCheckBox();
+        chkUpperCase = new javax.swing.JCheckBox();
         chkSpecialChar = new javax.swing.JCheckBox();
         lblLength = new javax.swing.JLabel();
         spnrLength = new javax.swing.JSpinner();
@@ -121,15 +121,20 @@ public class AccountInfo extends javax.swing.JFrame {
             }
         });
 
-        chkZeroToNine.setText("0-9");
+        chkNumeric.setSelected(true);
+        chkNumeric.setText("0-9");
 
-        chkaToz.setText("a-z");
+        chkLowerCase.setSelected(true);
+        chkLowerCase.setText("a-z");
 
-        chkAtoZ.setText("A-Z");
+        chkUpperCase.setSelected(true);
+        chkUpperCase.setText("A-Z");
 
         chkSpecialChar.setText("Special Char");
 
         lblLength.setText("Length:");
+
+        spnrLength.setModel(new javax.swing.SpinnerNumberModel(6, 6, 25, 1));
 
         javax.swing.GroupLayout pnlAccountInfoLayout = new javax.swing.GroupLayout(pnlAccountInfo);
         pnlAccountInfo.setLayout(pnlAccountInfoLayout);
@@ -163,11 +168,11 @@ public class AccountInfo extends javax.swing.JFrame {
                                     .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnlAccountInfoLayout.createSequentialGroup()
-                                        .addComponent(chkZeroToNine)
+                                        .addComponent(chkNumeric)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chkaToz)
+                                        .addComponent(chkLowerCase)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chkAtoZ)
+                                        .addComponent(chkUpperCase)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(chkSpecialChar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -192,9 +197,9 @@ public class AccountInfo extends javax.swing.JFrame {
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkZeroToNine)
-                    .addComponent(chkaToz)
-                    .addComponent(chkAtoZ)
+                    .addComponent(chkNumeric)
+                    .addComponent(chkLowerCase)
+                    .addComponent(chkUpperCase)
                     .addComponent(chkSpecialChar)
                     .addComponent(lblLength)
                     .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,7 +343,11 @@ public class AccountInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnGeneratePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneratePasswordActionPerformed
-        txtPassword.setText(PasswordGenerator.genetratePassword());
+        if(!chkLowerCase.isSelected() && !chkUpperCase.isSelected() && !chkNumeric.isSelected() && !chkSpecialChar.isSelected()){
+            JOptionPane.showMessageDialog(this, "Please select atleast one checkbox to generate passwored!");
+        }else{
+            txtPassword.setText(PasswordGenerator.genetratePassword(chkUpperCase.isSelected(),chkLowerCase.isSelected(),chkNumeric.isSelected(),chkSpecialChar.isSelected(),(int)spnrLength.getValue()));
+        }    
     }//GEN-LAST:event_btnGeneratePasswordActionPerformed
 
     /**
@@ -433,10 +442,10 @@ public class AccountInfo extends javax.swing.JFrame {
     private javax.swing.JButton btnGeneratePassword;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JCheckBox chkAtoZ;
+    private javax.swing.JCheckBox chkLowerCase;
+    private javax.swing.JCheckBox chkNumeric;
     private javax.swing.JCheckBox chkSpecialChar;
-    private javax.swing.JCheckBox chkZeroToNine;
-    private javax.swing.JCheckBox chkaToz;
+    private javax.swing.JCheckBox chkUpperCase;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
