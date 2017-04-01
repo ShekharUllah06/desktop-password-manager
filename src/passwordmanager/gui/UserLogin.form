@@ -24,33 +24,35 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="26" max="32767" attributes="0"/>
-              <Component id="pnlImage" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="pnlImage" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnpUserInfo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="pnlImage" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnlImage" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <Component id="pnpUserInfo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="pnpUserInfo">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Login"/>
+            <TitledBorder title="Login Info"/>
           </Border>
         </Property>
       </Properties>
@@ -62,22 +64,23 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblPassword" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblUserName" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtUserName" min="-2" pref="166" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="btnLogin" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnCancle" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnClear" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtPassword" max="32767" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblUserName" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtUserName" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -94,13 +97,13 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnLogin" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCancle" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -115,12 +118,15 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtUserName">
         </Component>
-        <Component class="javax.swing.JLabel" name="lblPassword">
+        <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Password:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPassword">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPasswordKeyPressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogin">
           <Properties>
@@ -130,24 +136,27 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCancle">
+        <Component class="javax.swing.JButton" name="btnClear">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cancle"/>
+            <Property name="text" type="java.lang.String" value="Clear"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="java.awt.Panel" name="pnlImage">
+    <Container class="javax.swing.JPanel" name="pnlImage">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="180" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="167" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="132" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
