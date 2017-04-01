@@ -29,15 +29,16 @@ import passwordmanager.util.PasswordDigest;
  *
  * @author Abdullah Shekhar
  */
-public class CreateUser extends javax.swing.JFrame {
+public class UpdateUser extends javax.swing.JFrame {
 
     /**
      * Creates new form CreateUser
      */
-    public CreateUser() {
+    public UpdateUser() {
         initComponents();
         this.setTitle("Create User");
         setButtonIcon() ;
+        findUser();
     }
 
     /**
@@ -115,9 +116,10 @@ public class CreateUser extends javax.swing.JFrame {
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnClear)
-                    .addComponent(btnSave))
+                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSave)
+                    .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnClear)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -161,9 +163,7 @@ public class CreateUser extends javax.swing.JFrame {
 
             if (UserService.insertUser(user)) {
                 dispose();
-                Main myFrame = new Main();
-                myFrame.setVisible(true);
-                myFrame.setExtendedState(myFrame.getExtendedState() | myFrame.MAXIMIZED_BOTH);
+                JOptionPane.showMessageDialog(this, "User info updated successfully!");
             }
         }
 
@@ -191,20 +191,21 @@ public class CreateUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateUser().setVisible(true);
+                new UpdateUser().setVisible(true);
             }
         });
     }
@@ -223,6 +224,12 @@ public class CreateUser extends javax.swing.JFrame {
         btnClear.setIcon(imageIcon);
 
     }
+     
+     private void findUser(){
+         User user=UserService.readUser();
+         txtUserName.setText(user.getUserName());
+         txtPassword.grabFocus();
+     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;

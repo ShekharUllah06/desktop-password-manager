@@ -105,7 +105,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniUserActionPerformed
-        CreateUser createUser = new CreateUser();
+        UpdateUser createUser = new UpdateUser();
         createUser.setLocationRelativeTo(null);
         createUser.setVisible(true);
     }//GEN-LAST:event_mniUserActionPerformed

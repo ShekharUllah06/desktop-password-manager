@@ -46,6 +46,8 @@ public class UserLogin extends javax.swing.JFrame {
         this.setResizable(false);
         JRootPane rootPane = SwingUtilities.getRootPane(btnLogin);
         rootPane.setDefaultButton(btnLogin);
+        setButtonIcon();
+        this.setTitle("User Login");
     }
 
     /**
@@ -115,8 +117,7 @@ public class UserLogin extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnClear)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtPassword))))
-                .addContainerGap())
+                            .addComponent(txtPassword)))))
         );
         pnpUserInfoLayout.setVerticalGroup(
             pnpUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +157,7 @@ public class UserLogin extends javax.swing.JFrame {
                 .addComponent(pnlImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnpUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,10 +184,7 @@ public class UserLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-            login();
-        }
-        
+ 
     }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
@@ -267,6 +265,22 @@ public class UserLogin extends javax.swing.JFrame {
         //JPanel panel = new JPanel(new BorderLayout());
         pnlImage.setLayout(new BorderLayout());
         pnlImage.add(label, BorderLayout.CENTER);
+    }
+    
+     private void setButtonIcon() {
+        ImageIcon imageIcon = new ImageIcon("res/login.png");
+        Image image = imageIcon.getImage();
+        Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newimg);
+        btnLogin.setIcon(imageIcon);
+
+
+        imageIcon = new ImageIcon("res/clear.jpg");
+        image = imageIcon.getImage();
+        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newimg);
+        btnClear.setIcon(imageIcon);
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
