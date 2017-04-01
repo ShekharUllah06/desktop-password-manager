@@ -16,10 +16,6 @@
  */
 package passwordmanager.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -33,8 +29,6 @@ public class PasswordGenerator {
     private static final String NUMERIC_CHARACTERS = "0123456789";
     private static final String SYMBOLS = "é,;.:-_*?=})](/{&%+$#'!<>\\\"";
     private static final String AMBIGUOUS_CHARACTERS = "{}[]()/\\'\"`~,;:.<>";
-
-    private static List<String> charList = new ArrayList<>();
 
     public static String genetratePassword(boolean upperCaseLetter, boolean lowerCaseLetter, boolean numeric, boolean special, int length) {
         String password = "";

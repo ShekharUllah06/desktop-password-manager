@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import passwordmanager.bean.Manager;
+import passwordmanager.util.AESEncryption;
 import passwordmanager.util.PasswordGenerator;
 
 /**
@@ -274,7 +275,7 @@ public class AccountInfo extends javax.swing.JFrame {
             passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
             //accountInfo.setId(1);
             accountInfo.setUserName(txtUserName.getText());
-            accountInfo.setPassword(txtPassword.getText());
+            accountInfo.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
             accountInfo.setType(txtType.getText());
             accountInfo.setWebsite(txtUrl.getText());
             Manager manager = new Manager();
@@ -293,18 +294,18 @@ public class AccountInfo extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblAccountInfo.getModel();
         txtUserName.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 1).toString());
         txtPassword.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 2).toString());
-        try{
-           txtType.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 3).toString()); 
-        }catch(NullPointerException npe){
-            
+        try {
+            txtType.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 3).toString());
+        } catch (NullPointerException npe) {
+
         }
-        try{
+        try {
             txtUrl.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 4).toString());
-        }catch(NullPointerException npe){
-            
+        } catch (NullPointerException npe) {
+
         }
-        
-        updateId=Integer.parseInt(model.getValueAt(tblAccountInfo.getSelectedRow(), 0).toString());
+
+        updateId = Integer.parseInt(model.getValueAt(tblAccountInfo.getSelectedRow(), 0).toString());
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
@@ -315,39 +316,45 @@ public class AccountInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-         //passwordmanager.bean.AccountInfo accountInfo =  em.find( passwordmanager.bean.AccountInfo.class, 4);
-         //System.out.println(accountInfo.toString());
-         Manager m=new Manager();
-         passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
-         accountInfo.setId(updateId);
-         accountInfo.setPassword(txtPassword.getText());
-         accountInfo.setUserName(txtUserName.getText());
-         accountInfo.setWebsite(txtUrl.getText());
-         accountInfo.setType(txtType.getText());
-         m.updateEntity(accountInfo);
-         clear();
-         populateTable();
+        if (txtUserName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter user name!");
+            txtUserName.grabFocus();
+        } else if (txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter password or generate new one!");
+            txtPassword.grabFocus();
+        } else {
+            Manager m = new Manager();
+            passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
+            accountInfo.setId(updateId);
+            accountInfo.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
+            accountInfo.setUserName(txtUserName.getText());
+            accountInfo.setWebsite(txtUrl.getText());
+            accountInfo.setType(txtType.getText());
+            m.updateEntity(accountInfo);
+            clear();
+            populateTable();
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-         Manager m=new Manager();
-         passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
-         accountInfo.setId(updateId);
-         //accountInfo.setPassword(txtPassword.getText());
-         //accountInfo.setUserName(txtUserName.getText());
-         //accountInfo.setWebsite(txtUrl.getText());
-         //accountInfo.setType(txtType.getText());
-         m.deleteEntity(accountInfo);
-         clear();
-         populateTable();
+        Manager m = new Manager();
+        passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
+        accountInfo.setId(updateId);
+        //accountInfo.setPassword(txtPassword.getText());
+        //accountInfo.setUserName(txtUserName.getText());
+        //accountInfo.setWebsite(txtUrl.getText());
+        //accountInfo.setType(txtType.getText());
+        m.deleteEntity(accountInfo);
+        clear();
+        populateTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnGeneratePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneratePasswordActionPerformed
-        if(!chkLowerCase.isSelected() && !chkUpperCase.isSelected() && !chkNumeric.isSelected() && !chkSpecialChar.isSelected()){
+        if (!chkLowerCase.isSelected() && !chkUpperCase.isSelected() && !chkNumeric.isSelected() && !chkSpecialChar.isSelected()) {
             JOptionPane.showMessageDialog(this, "Please select atleast one checkbox to generate passwored!");
-        }else{
-            txtPassword.setText(PasswordGenerator.genetratePassword(chkUpperCase.isSelected(),chkLowerCase.isSelected(),chkNumeric.isSelected(),chkSpecialChar.isSelected(),(int)spnrLength.getValue()));
-        }    
+        } else {
+            txtPassword.setText(PasswordGenerator.genetratePassword(chkUpperCase.isSelected(), chkLowerCase.isSelected(), chkNumeric.isSelected(), chkSpecialChar.isSelected(), (int) spnrLength.getValue()));
+        }
     }//GEN-LAST:event_btnGeneratePasswordActionPerformed
 
     /**
@@ -429,12 +436,14 @@ public class AccountInfo extends javax.swing.JFrame {
         Manager m = new Manager();
         Collection<passwordmanager.bean.AccountInfo> emps = m.findAllAccountInfo();
         for (passwordmanager.bean.AccountInfo e : emps) {
-            model.addRow(new Object[]{e.getId(),e.getUserName(), e.getPassword(), e.getType(), e.getWebsite()});
+            model.addRow(new Object[]{e.getId(), e.getUserName(),AESEncryption.decrypt(e.getPassword(), secretKey), e.getType(), e.getWebsite()});
         }
 
     }
-    private static int updateId=0;
+    private static int updateId = 0;
     private EntityManager em;
+
+    private final String secretKey = "Ami obhimani, chiro-khubdho hiyar katorota, batha sunibirh";
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
