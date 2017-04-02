@@ -19,7 +19,7 @@ package passwordmanager.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.ImageIcon;
@@ -48,6 +48,8 @@ public class UserLogin extends javax.swing.JFrame {
         rootPane.setDefaultButton(btnLogin);
         setButtonIcon();
         this.setTitle("User Login");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/login.png")));
+        
     }
 
     /**

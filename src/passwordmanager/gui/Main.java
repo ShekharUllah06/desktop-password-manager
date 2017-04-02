@@ -18,6 +18,7 @@ package passwordmanager.gui;
 
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
@@ -35,7 +36,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-       
+       this.setIconImage(Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/password.png")));
     }
 
     /**
@@ -52,7 +53,7 @@ public class Main extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         mniUser = new javax.swing.JMenuItem();
         mnAccounts = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        mnHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,8 +86,22 @@ public class Main extends javax.swing.JFrame {
         });
         jMenuBar1.add(mnAccounts);
 
-        jMenu2.setText("Help");
-        jMenuBar1.add(jMenu2);
+        mnHelp.setText("Help");
+        mnHelp.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                mnHelpMenuSelected(evt);
+            }
+        });
+        mnHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnHelpActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(mnHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -105,9 +120,21 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniUserActionPerformed
-        UpdateUser createUser = new UpdateUser();
-        createUser.setLocationRelativeTo(null);
-        createUser.setVisible(true);
+        UpdateUser m = new UpdateUser();
+        Dimension desktopSize = desktopPane.getSize();
+        Dimension jInternalFrameSize = m.getSize();
+        m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                (desktopSize.height - jInternalFrameSize.height) / 2);
+        m.setVisible(true);
+        m.setClosable(true);
+        m.setResizable(false);
+        m.setMaximizable(false);
+        m.setIconifiable(true);
+        desktopPane.add(m);
+        try {
+            m.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }//GEN-LAST:event_mniUserActionPerformed
 
     private void mnAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAccountsActionPerformed
@@ -131,6 +158,30 @@ public class Main extends javax.swing.JFrame {
     private void mnAccountsMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_mnAccountsMenuSelected
         showAccount();
     }//GEN-LAST:event_mnAccountsMenuSelected
+
+    private void mnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnHelpActionPerformed
+        
+    }//GEN-LAST:event_mnHelpActionPerformed
+
+    private void mnHelpMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_mnHelpMenuSelected
+        Help m = new Help();
+        //Dimension desktopSize = desktopPane.getSize();
+        //Dimension jInternalFrameSize = m.getSize();
+        //m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                //(desktopSize.height - jInternalFrameSize.height) / 2);
+        
+        m.setSize(desktopPane.getSize());
+        m.setVisible(true);
+        m.setClosable(true);
+        m.setResizable(true);
+        m.setMaximizable(true);
+        m.setIconifiable(true);
+        desktopPane.add(m);
+        try {
+            m.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_mnHelpMenuSelected
 
     /**
      * @param args the command line arguments
@@ -193,9 +244,9 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu mnAccounts;
+    private javax.swing.JMenu mnHelp;
     private javax.swing.JMenuItem mniUser;
     // End of variables declaration//GEN-END:variables
 

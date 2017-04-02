@@ -17,6 +17,7 @@
 package passwordmanager.gui;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.ImageIcon;
@@ -29,16 +30,18 @@ import passwordmanager.util.PasswordDigest;
  *
  * @author Abdullah Shekhar
  */
-public class UpdateUser extends javax.swing.JFrame {
+public class UpdateUser extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CreateUser
      */
     public UpdateUser() {
         initComponents();
-        this.setTitle("Create User");
+        this.setTitle("Update User");
         setButtonIcon() ;
         findUser();
+        this.setClosable(true);
+        //setIconImage(Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/user.png")));
     }
 
     /**
@@ -58,8 +61,7 @@ public class UpdateUser extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pnlUserInfo.setBorder(javax.swing.BorderFactory.createTitledBorder("User Info"));
 
@@ -118,8 +120,7 @@ public class UpdateUser extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSave)
-                    .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnClear)))
+                    .addComponent(btnClear))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -130,14 +131,14 @@ public class UpdateUser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();

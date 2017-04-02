@@ -17,6 +17,7 @@
 package passwordmanager.gui;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.ImageIcon;
@@ -38,6 +39,7 @@ public class CreateUser extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Create User");
         setButtonIcon() ;
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/user.png")));
     }
 
     /**
@@ -115,9 +117,9 @@ public class CreateUser extends javax.swing.JFrame {
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnClear)
-                    .addComponent(btnSave))
+                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSave)
+                    .addComponent(btnClear))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
