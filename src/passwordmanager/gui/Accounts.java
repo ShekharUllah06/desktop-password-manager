@@ -16,18 +16,28 @@
  */
 package passwordmanager.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
-import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
-import passwordmanager.bean.Manager;
+import passwordmanager.bean.Account;
+import passwordmanager.service.AccountService;
 import passwordmanager.util.AESEncryption;
 import passwordmanager.util.PasswordGenerator;
 
@@ -43,10 +53,11 @@ public class Accounts extends javax.swing.JInternalFrame {
     public Accounts() {
         initComponents();
         setButtonIcon();
+        this.setTitle("All Account Information");
+        tableTest();
         clear();
-        populateTable();
-        
         addPopupTable();
+
     }
 
     /**
@@ -78,9 +89,8 @@ public class Accounts extends javax.swing.JInternalFrame {
         chkSpecialChar = new javax.swing.JCheckBox();
         lblLength = new javax.swing.JLabel();
         spnrLength = new javax.swing.JSpinner();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblAccountInfo = new javax.swing.JTable();
+        pnlRecords = new javax.swing.JPanel();
+        pnlTest = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(568, 549));
 
@@ -229,28 +239,19 @@ public class Accounts extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Records"));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        pnlRecords.setBorder(javax.swing.BorderFactory.createTitledBorder("Records"));
+        pnlRecords.setLayout(new java.awt.BorderLayout());
 
-        tblAccountInfo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "User Name", "Password", "Type", "URL"
-            }
-        ));
-        tblAccountInfo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAccountInfoMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblAccountInfoMouseReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblAccountInfo);
-
-        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout pnlTestLayout = new javax.swing.GroupLayout(pnlTest);
+        pnlTest.setLayout(pnlTestLayout);
+        pnlTestLayout.setHorizontalGroup(
+            pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 141, Short.MAX_VALUE)
+        );
+        pnlTestLayout.setVerticalGroup(
+            pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 213, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -259,16 +260,20 @@ public class Accounts extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(pnlRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,18 +287,17 @@ public class Accounts extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Enter password or generate new one!");
             txtPassword.grabFocus();
         } else {
-            passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
-            //accountInfo.setId(1);
-            accountInfo.setUserName(txtUserName.getText());
-            accountInfo.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
-            accountInfo.setType(txtType.getText());
-            accountInfo.setWebsite(txtUrl.getText());
-            Manager manager = new Manager();
-            if (manager.persist(accountInfo)) {
-                clear();
+
+            Account account = new Account();
+            account.setUserName(txtUserName.getText().trim());
+            account.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
+            account.setType(txtType.getText());
+            account.setUrl(txtUrl.getText());
+            accountList.add(account);
+            if (AccountService.insertAccount(accountList)) {
+                JOptionPane.showMessageDialog(this, "Saved Successfully", "Password Manager", 1);
                 populateTable();
-            } else {
-                JOptionPane.showMessageDialog(this, "Something went wrong!");
+                clear();
             }
 
         }
@@ -307,30 +311,27 @@ public class Accounts extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Enter password or generate new one!");
             txtPassword.grabFocus();
         } else {
-            Manager m = new Manager();
-            passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
-            accountInfo.setId(updateId);
-            accountInfo.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
-            accountInfo.setUserName(txtUserName.getText());
-            accountInfo.setWebsite(txtUrl.getText());
-            accountInfo.setType(txtType.getText());
-            m.updateEntity(accountInfo);
-            clear();
-            populateTable();
+            Account account = new Account();
+            account.setUserName(txtUserName.getText().trim());
+            account.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
+            account.setType(txtType.getText());
+            account.setUrl(txtUrl.getText());
+            accountList.set(updateId, account);
+            if (AccountService.insertAccount(accountList)) {
+                JOptionPane.showMessageDialog(this, "Updated Successfully", "Password Manager", 1);
+                populateTable();
+                clear();
+            }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        Manager m = new Manager();
-        passwordmanager.bean.AccountInfo accountInfo = new passwordmanager.bean.AccountInfo();
-        accountInfo.setId(updateId);
-        //accountInfo.setPassword(txtPassword.getText());
-        //accountInfo.setUserName(txtUserName.getText());
-        //accountInfo.setWebsite(txtUrl.getText());
-        //accountInfo.setType(txtType.getText());
-        m.deleteEntity(accountInfo);
-        clear();
-        populateTable();
+        accountList.remove(updateId);
+        if (AccountService.insertAccount(accountList)) {
+            JOptionPane.showMessageDialog(this, "Deleted Successfully", "Password Manager", 1);
+            populateTable();
+            clear();
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -344,39 +345,6 @@ public class Accounts extends javax.swing.JInternalFrame {
             txtPassword.setText(PasswordGenerator.genetratePassword(chkUpperCase.isSelected(), chkLowerCase.isSelected(), chkNumeric.isSelected(), chkSpecialChar.isSelected(), (int) spnrLength.getValue()));
         }
     }//GEN-LAST:event_btnGeneratePasswordActionPerformed
-
-    private void tblAccountInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAccountInfoMouseClicked
-        try {
-            DefaultTableModel model = (DefaultTableModel) tblAccountInfo.getModel();
-            txtUserName.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 1).toString());
-            try {
-                txtPassword.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 2).toString());
-            } catch (NullPointerException npe) {
-
-            }
-            try {
-                txtType.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 3).toString());
-            } catch (NullPointerException npe) {
-
-            }
-            try {
-                txtUrl.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 4).toString());
-            } catch (NullPointerException npe) {
-
-            }
-
-            updateId = Integer.parseInt(model.getValueAt(tblAccountInfo.getSelectedRow(), 0).toString());
-            btnSave.setEnabled(false);
-            btnUpdate.setEnabled(true);
-            btnDelete.setEnabled(true);
-        } catch (ArrayIndexOutOfBoundsException aiobe) {
-
-        }
-    }//GEN-LAST:event_tblAccountInfoMouseClicked
-
-    private void tblAccountInfoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAccountInfoMouseReleased
-       
-    }//GEN-LAST:event_tblAccountInfoMouseReleased
 
     private void setButtonIcon() {
         ImageIcon imageIcon = new ImageIcon("res/save.jpg");
@@ -413,16 +381,24 @@ public class Accounts extends javax.swing.JInternalFrame {
         btnSave.setEnabled(true);
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
-        tblAccountInfo.clearSelection();
+        table.clearSelection();
     }
 
     private void populateTable() {
-        DefaultTableModel model = (DefaultTableModel) tblAccountInfo.getModel();
-        model.setNumRows(0);
-        Manager m = new Manager();
-        Collection<passwordmanager.bean.AccountInfo> emps = m.findAllAccountInfo();
-        for (passwordmanager.bean.AccountInfo e : emps) {
-            model.addRow(new Object[]{e.getId(), e.getUserName(), AESEncryption.decrypt(e.getPassword(), secretKey), e.getType(), e.getWebsite()});
+        tableData.clear();
+        if (accountList != null) {
+            for (int i = 0; i < accountList.size(); i++) {
+                Vector<String> rowOne = new Vector<String>();
+                rowOne.addElement(accountList.get(i).getUserName());
+                rowOne.addElement(AESEncryption.decrypt(accountList.get(i).getPassword(), secretKey));
+                rowOne.addElement(accountList.get(i).getType());
+                rowOne.addElement(accountList.get(i).getUrl());
+
+                tableData.add(rowOne);
+            }
+
+            table.revalidate();
+            table.repaint();
         }
 
     }
@@ -436,7 +412,7 @@ public class Accounts extends javax.swing.JInternalFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(tblAccountInfo.getSelectedRow() + " : " + tblAccountInfo.getSelectedColumn());
+                System.out.println(table.getSelectedRow() + " : " + table.getSelectedColumn());
                 JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
             }
         });
@@ -457,15 +433,63 @@ public class Accounts extends javax.swing.JInternalFrame {
         popupMenu.add(copyUserName);
         popupMenu.add(copyPassword);
         popupMenu.add(copyURL);
-        tblAccountInfo.setComponentPopupMenu(popupMenu);
+        table.setComponentPopupMenu(popupMenu);
+        popupMenu.addPopupMenuListener(new PopupMenuListener() {
+
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        int rowAtPoint = table.rowAtPoint(SwingUtilities.convertPoint(popupMenu, new Point(0, 0), table));
+                        if (rowAtPoint > -1) {
+                            table.setRowSelectionInterval(rowAtPoint, rowAtPoint);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+        });
     }
 
-    
-    private static int updateId = 0;
-    private EntityManager em;
+    private void tableTest() {
+        columnNames.addElement("User Name");
+        columnNames.addElement("Password");
+        columnNames.addElement("Type");
+        columnNames.addElement("URL");
+        table = new JTable(tableData, columnNames);
+        populateTable();
+        listSelectionModel = table.getSelectionModel();
+        listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
+        table.setSelectionModel(listSelectionModel);
+        JScrollPane tablePane = new JScrollPane(table);
+
+        //pnlTest.setLayout(new BorderLayout());
+        //pnlTest.add(tablePane, BorderLayout.CENTER);
+        pnlRecords.setLayout(new BorderLayout());
+        pnlRecords.add(tablePane, BorderLayout.CENTER);
+    }
+
+    private int updateId = 0;
 
     private final String secretKey = "Ami obhimani, chiro-khubdho hiyar katorota, batha sunibirh";
-
+    private ArrayList<Account> accountList = AccountService.readAccounts();
+    //JTable tblAccountInfo;
+    private ListSelectionModel listSelectionModel;
+    private JTable table;
+    Vector<Vector> tableData = new Vector<Vector>();
+    Vector<String> columnNames = new Vector<String>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
@@ -478,18 +502,50 @@ public class Accounts extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox chkSpecialChar;
     private javax.swing.JCheckBox chkUpperCase;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLength;
     private javax.swing.JLabel lblType;
     private javax.swing.JLabel lblUrl;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JPanel pnlAccountInfo;
+    private javax.swing.JPanel pnlRecords;
+    private javax.swing.JPanel pnlTest;
     private javax.swing.JSpinner spnrLength;
-    private javax.swing.JTable tblAccountInfo;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtType;
     private javax.swing.JTextField txtUrl;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    class SharedListSelectionHandler implements ListSelectionListener {
+
+        public void valueChanged(ListSelectionEvent e) {
+            int k = table.getSelectedRow();
+            try {
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                txtUserName.setText(model.getValueAt(table.getSelectedRow(), 0).toString());
+                try {
+                    txtPassword.setText(model.getValueAt(table.getSelectedRow(), 1).toString());
+                } catch (NullPointerException npe) {
+
+                }
+                try {
+                    txtType.setText(model.getValueAt(table.getSelectedRow(), 2).toString());
+                } catch (NullPointerException npe) {
+
+                }
+                try {
+                    txtUrl.setText(model.getValueAt(table.getSelectedRow(), 3).toString());
+                } catch (NullPointerException npe) {
+
+                }
+
+                updateId = table.getSelectedRow();
+                btnSave.setEnabled(false);
+                btnUpdate.setEnabled(true);
+                btnDelete.setEnabled(true);
+            } catch (ArrayIndexOutOfBoundsException aiobe) {
+                //aiobe.printStackTrace();
+            }
+        }
+    }
 }

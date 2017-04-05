@@ -16,14 +16,12 @@
  */
 package passwordmanager.gui;
 
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
+import java.io.IOException;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -36,7 +34,8 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-       this.setIconImage(Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/password.png")));
+        setButtonIcon();
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/password.png")));
     }
 
     /**
@@ -48,97 +47,71 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktopPane = new javax.swing.JDesktopPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        mniUser = new javax.swing.JMenuItem();
-        mnAccounts = new javax.swing.JMenu();
-        mnHelp = new javax.swing.JMenu();
+        desktopPane = new javax.swing.JDesktopPane(){
+            ImageIcon icon = new ImageIcon("res/background.jpg");
+            Image image = icon.getImage();
+
+            Image newimage = image.getScaledInstance(1000,700,Image.SCALE_SMOOTH);
+
+            @Override
+            protected void paintComponent(Graphics g)
+            {
+                super.paintComponent(g);
+                g.drawImage(newimage, 0, 0,getWidth(), getHeight(), this);
+            }
+        };
+        toolBar = new javax.swing.JToolBar();
+        btnAccount = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
+        btnHelp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Password Manager");
+        getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("Settings");
+        toolBar.setRollover(true);
 
-        mniUser.setText("User");
-        mniUser.addActionListener(new java.awt.event.ActionListener() {
+        btnAccount.setText("Account");
+        btnAccount.setFocusable(false);
+        btnAccount.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAccount.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniUserActionPerformed(evt);
+                btnAccountActionPerformed(evt);
             }
         });
-        jMenu1.add(mniUser);
+        toolBar.add(btnAccount);
 
-        jMenuBar1.add(jMenu1);
-
-        mnAccounts.setText("Accounts");
-        mnAccounts.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                mnAccountsMenuSelected(evt);
-            }
-        });
-        mnAccounts.addActionListener(new java.awt.event.ActionListener() {
+        btnUser.setText("Settings");
+        btnUser.setFocusable(false);
+        btnUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnUser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnAccountsActionPerformed(evt);
+                btnUserActionPerformed(evt);
             }
         });
-        jMenuBar1.add(mnAccounts);
+        toolBar.add(btnUser);
 
-        mnHelp.setText("Help");
-        mnHelp.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                mnHelpMenuSelected(evt);
-            }
-        });
-        mnHelp.addActionListener(new java.awt.event.ActionListener() {
+        btnHelp.setText("Help");
+        btnHelp.setFocusable(false);
+        btnHelp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHelp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnHelpActionPerformed(evt);
+                btnHelpActionPerformed(evt);
             }
         });
-        jMenuBar1.add(mnHelp);
+        toolBar.add(btnHelp);
 
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-        );
+        getContentPane().add(toolBar, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniUserActionPerformed
-        UpdateUser m = new UpdateUser();
-        Dimension desktopSize = desktopPane.getSize();
-        Dimension jInternalFrameSize = m.getSize();
-        m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
-                (desktopSize.height - jInternalFrameSize.height) / 2);
-        m.setVisible(true);
-        m.setClosable(true);
-        m.setResizable(false);
-        m.setMaximizable(false);
-        m.setIconifiable(true);
-        desktopPane.add(m);
-        try {
-            m.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_mniUserActionPerformed
-
-    private void mnAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAccountsActionPerformed
-        Accounts m = new Accounts();
+    private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
+         Accounts m = new Accounts();
+        m.setSize(700, 550);
         Dimension desktopSize = desktopPane.getSize();
         Dimension jInternalFrameSize = m.getSize();
         m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
@@ -153,23 +126,35 @@ public class Main extends javax.swing.JFrame {
             m.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_mnAccountsActionPerformed
+    }//GEN-LAST:event_btnAccountActionPerformed
 
-    private void mnAccountsMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_mnAccountsMenuSelected
-        showAccount();
-    }//GEN-LAST:event_mnAccountsMenuSelected
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+       UpdateUser m = new UpdateUser();
+        Dimension desktopSize = desktopPane.getSize();
+        Dimension jInternalFrameSize = m.getSize();
+        m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+            (desktopSize.height - jInternalFrameSize.height) / 2);
+        m.setVisible(true);
+        m.setClosable(true);
+        m.setResizable(false);
+        m.setMaximizable(false);
+        m.setIconifiable(true);
+        desktopPane.add(m);
+        try {
+            m.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
 
-    private void mnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnHelpActionPerformed
-        
-    }//GEN-LAST:event_mnHelpActionPerformed
 
-    private void mnHelpMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_mnHelpMenuSelected
+    }//GEN-LAST:event_btnUserActionPerformed
+
+    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
         Help m = new Help();
         //Dimension desktopSize = desktopPane.getSize();
         //Dimension jInternalFrameSize = m.getSize();
         //m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
-                //(desktopSize.height - jInternalFrameSize.height) / 2);
-        
+            //(desktopSize.height - jInternalFrameSize.height) / 2);
+
         m.setSize(desktopPane.getSize());
         m.setVisible(true);
         m.setClosable(true);
@@ -181,7 +166,7 @@ public class Main extends javax.swing.JFrame {
             m.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_mnHelpMenuSelected
+    }//GEN-LAST:event_btnHelpActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,41 +198,39 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Main myFrame = new Main();
-                myFrame.setVisible(true);
-                myFrame.setExtendedState(myFrame.getExtendedState() | myFrame.MAXIMIZED_BOTH);
+                new Main().setVisible(true);
             }
         });
     }
+    
+     private void setButtonIcon() {
+        ImageIcon imageIcon = new ImageIcon("res/account.png");
+        Image image = imageIcon.getImage();
+        Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newimg);
+        btnAccount.setIcon(imageIcon);
+        btnAccount.setSize(500, 30);
 
-    private void showAccount() {
-        Accounts m = new Accounts();
-        m.setSize(700, 550);
-        Dimension desktopSize = desktopPane.getSize();
-        Dimension jInternalFrameSize = m.getSize();
-        m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
-                (desktopSize.height - jInternalFrameSize.height) / 2);
-        m.setVisible(true);
-        m.setClosable(true);
-        m.setResizable(true);
-        m.setMaximizable(true);
-        m.setIconifiable(true);
-        desktopPane.add(m);
-        try {
-            m.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
+        imageIcon = new ImageIcon("res/user_settings.png");
+        image = imageIcon.getImage();
+        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newimg);
+        btnUser.setIcon(imageIcon);
+
+        imageIcon = new ImageIcon("res/help.png");
+        image = imageIcon.getImage();
+        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newimg);
+        btnHelp.setIcon(imageIcon);
+
     }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccount;
+    private javax.swing.JButton btnHelp;
+    private javax.swing.JButton btnUser;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu mnAccounts;
-    private javax.swing.JMenu mnHelp;
-    private javax.swing.JMenuItem mniUser;
+    private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 
 }

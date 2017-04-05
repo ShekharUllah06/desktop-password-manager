@@ -23,51 +23,53 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import passwordmanager.bean.Account;
 import passwordmanager.bean.User;
-import passwordmanager.gui.UserLogin;
 
 /**
  *
  * @author Abdullah Shekhar
  */
-public class UserService {
+public class AccountService {
 
-    private static final String fileName = "UserInfo.ser";
+    private static final String fileName = "AccountInfo.ser";
 
-    public static boolean insertUser(User u) {
+    public static boolean insertAccount(ArrayList<Account> accounts) {
         try {
             // write object to file
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(u);
+            oos.writeObject(accounts);
             oos.close();
         } catch (FileNotFoundException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         } catch (IOException e) {
-            //e.printStackTrace();
-        } 
+            e.printStackTrace();
+        }
         return true;
     }
 
-    public static User readUser() {
-        User user=null;
+    public static ArrayList<Account> readAccounts() {
+        ArrayList<Account> accountList = null;
         try {
             // read object from file
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            user = (User) ois.readObject();
+            accountList = new ArrayList<>();
+            accountList = (ArrayList<Account>) ois.readObject();
             ois.close();
             //System.out.println("User Name: " + user.getUserName()+ ", Password: " + user.getPassword());
 
         } catch (FileNotFoundException e) {
-            //e.printStackTrace();
+            return null;
         } catch (EOFException e) {
-             
+            
         } catch (ClassNotFoundException e) {
-            //e.printStackTrace();
-        } catch(IOException eof){
-            //eof.printStackTrace();
+           return null;
+        } catch (IOException eof) {
+            return null;
         }
-        return user;
+        return accountList;
     }
 }
