@@ -25,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import passwordmanager.bean.Manager;
 import passwordmanager.util.AESEncryption;
@@ -44,6 +45,7 @@ public class Accounts extends javax.swing.JInternalFrame {
         setButtonIcon();
         clear();
         populateTable();
+        
         addPopupTable();
     }
 
@@ -242,6 +244,9 @@ public class Accounts extends javax.swing.JInternalFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblAccountInfoMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblAccountInfoMouseReleased(evt);
+            }
         });
         jScrollPane1.setViewportView(tblAccountInfo);
 
@@ -345,8 +350,8 @@ public class Accounts extends javax.swing.JInternalFrame {
             DefaultTableModel model = (DefaultTableModel) tblAccountInfo.getModel();
             txtUserName.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 1).toString());
             try {
-            txtPassword.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 2).toString());
-            }catch (NullPointerException npe) {
+                txtPassword.setText(model.getValueAt(tblAccountInfo.getSelectedRow(), 2).toString());
+            } catch (NullPointerException npe) {
 
             }
             try {
@@ -368,6 +373,10 @@ public class Accounts extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_tblAccountInfoMouseClicked
+
+    private void tblAccountInfoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAccountInfoMouseReleased
+       
+    }//GEN-LAST:event_tblAccountInfoMouseReleased
 
     private void setButtonIcon() {
         ImageIcon imageIcon = new ImageIcon("res/save.jpg");
@@ -417,8 +426,8 @@ public class Accounts extends javax.swing.JInternalFrame {
         }
 
     }
-    
-    private void addPopupTable(){
+
+    private void addPopupTable() {
         final JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem copyUserName = new JMenuItem("Copy User Name");
         JMenuItem copyPassword = new JMenuItem("Copy Password");
@@ -450,6 +459,8 @@ public class Accounts extends javax.swing.JInternalFrame {
         popupMenu.add(copyURL);
         tblAccountInfo.setComponentPopupMenu(popupMenu);
     }
+
+    
     private static int updateId = 0;
     private EntityManager em;
 
