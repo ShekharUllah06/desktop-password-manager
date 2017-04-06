@@ -77,4 +77,31 @@ public class AccountService {
         }
         return accountList;
     }
+    
+    public static ArrayList<Account> readAccountsRestore(String fileName) {
+        ArrayList<Account> accountList = null;
+        try {
+            // read object from file
+            FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            accountList = new ArrayList<>();
+            accountList = (ArrayList<Account>) ois.readObject();
+            ois.close();
+            //System.out.println("User Name: " + user.getUserName()+ ", Password: " + user.getPassword());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            //return null;
+        } catch (EOFException e) {
+            e.printStackTrace();
+            //return null;
+        } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+            //return null;
+        } catch (IOException eof) {
+           eof.printStackTrace();
+            //return null;
+        }
+        return accountList;
+    }
 }

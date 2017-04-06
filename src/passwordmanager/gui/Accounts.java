@@ -20,6 +20,8 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -58,9 +60,10 @@ public class Accounts extends javax.swing.JInternalFrame {
         tableTest();
         clear();
         addPopupTable();
-        if(AccountService.readAccounts()!=null){
-            accountList=AccountService.readAccounts();
+        if (AccountService.readAccounts() != null) {
+            accountList = AccountService.readAccounts();
         }
+        populateTable();
 
     }
 
@@ -360,12 +363,12 @@ public class Accounts extends javax.swing.JInternalFrame {
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnUpdate.setIcon(imageIcon);
-        
+
         image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/delete.png"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnDelete.setIcon(imageIcon);
-        
+
         image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/clear.jpg"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
@@ -381,6 +384,7 @@ public class Accounts extends javax.swing.JInternalFrame {
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
         table.clearSelection();
+        txtUserName.grabFocus();
     }
 
     private void populateTable() {
@@ -407,26 +411,36 @@ public class Accounts extends javax.swing.JInternalFrame {
         JMenuItem copyUserName = new JMenuItem("Copy User Name");
         JMenuItem copyPassword = new JMenuItem("Copy Password");
         JMenuItem copyURL = new JMenuItem("Copy URL");
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
         copyUserName.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(table.getSelectedRow() + " : " + table.getSelectedColumn());
-                JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+                StringSelection selection = new StringSelection(model.getValueAt(table.getSelectedRow(), 0).toString());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+                //System.out.println(table.getSelectedRow() + " : " + table.getSelectedColumn());
+                //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
             }
         });
         copyPassword.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+                StringSelection selection = new StringSelection(model.getValueAt(table.getSelectedRow(), 1).toString());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+                //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
             }
         });
         copyURL.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+                StringSelection selection = new StringSelection(model.getValueAt(table.getSelectedRow(), 3).toString());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+                //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
             }
         });
         popupMenu.add(copyUserName);

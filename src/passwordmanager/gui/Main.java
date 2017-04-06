@@ -20,8 +20,23 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import passwordmanager.Global;
+import passwordmanager.PasswordManager;
+import passwordmanager.bean.Account;
+import passwordmanager.service.AccountService;
 
 /**
  *
@@ -66,6 +81,8 @@ public class Main extends javax.swing.JFrame {
         toolBar = new javax.swing.JToolBar();
         btnAccount = new javax.swing.JButton();
         btnUser = new javax.swing.JButton();
+        btnBackup = new javax.swing.JButton();
+        btnRestore = new javax.swing.JButton();
         btnHelp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,6 +112,28 @@ public class Main extends javax.swing.JFrame {
             }
         });
         toolBar.add(btnUser);
+
+        btnBackup.setText("Backup");
+        btnBackup.setFocusable(false);
+        btnBackup.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBackup.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackupActionPerformed(evt);
+            }
+        });
+        toolBar.add(btnBackup);
+
+        btnRestore.setText("Restore");
+        btnRestore.setFocusable(false);
+        btnRestore.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRestore.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRestore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestoreActionPerformed(evt);
+            }
+        });
+        toolBar.add(btnRestore);
 
         btnHelp.setText("Help");
         btnHelp.setFocusable(false);
@@ -171,6 +210,78 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnHelpActionPerformed
 
+    private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
+        if (AccountService.readAccounts() != null) {
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save");
+            FileFilter filter = new FileNameExtensionFilter("ser file", new String[] {"ser"});
+            fileChooser.setFileFilter(filter);
+            fileChooser.addChoosableFileFilter(filter);
+            int userSelection = fileChooser.showSaveDialog(this);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                try {
+                    ArrayList<Account> accountList = AccountService.readAccounts();
+                    
+                    FileOutputStream fos = new FileOutputStream(fileChooser.getSelectedFile() + ".ser");
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(accountList);
+                    oos.close();
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //JOptionPane.showMessageDialog(this, fileChooser.getSelectedFile());
+                //File fileToSave = fileChooser.getSelectedFile();
+                //System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "You Have No Data To Backup!");
+        }
+    }//GEN-LAST:event_btnBackupActionPerformed
+
+    private void btnRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestoreActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Open");
+        int userSelection = fileChooser.showOpenDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            try {
+                //read data from backup file
+                ArrayList<Account> accountList2 = new ArrayList<>();
+                if (AccountService.readAccountsRestore(fileChooser.getSelectedFile().getAbsolutePath()) != null) {
+                    accountList2 = AccountService.readAccountsRestore(fileChooser.getSelectedFile().getAbsolutePath());
+                    ArrayList<Account> accountList = new ArrayList<>();
+                    if (AccountService.readAccounts() != null) {
+                        accountList = AccountService.readAccounts();
+                        accountList2.addAll(accountList);
+                    }
+                    //If the data file not exist or for first time uses
+                    File file = new File(Global.ACCOUNT_FILE);
+                    if (!file.exists()) {
+                        new File(Global.ACCOUNT_FILE_PATH).mkdirs();
+                        try {
+                            file.createNewFile();
+                        } catch (Exception ex) {
+                            Logger.getLogger(PasswordManager.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    
+                    //Insert to main datafile
+                    if(AccountService.insertAccount(accountList2)){
+                        JOptionPane.showMessageDialog(this, "Data restored successfully!!", "Password Manager", 1);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "The file have no data!", "Password Manager", 1);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnRestoreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,11 +333,23 @@ public class Main extends javax.swing.JFrame {
         imageIcon = new ImageIcon(newimg);
         btnHelp.setIcon(imageIcon);
 
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/backup.png"));
+        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newimg);
+        btnBackup.setIcon(imageIcon);
+
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/restore.png"));
+        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newimg);
+        btnRestore.setIcon(imageIcon);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAccount;
+    private javax.swing.JButton btnBackup;
     private javax.swing.JButton btnHelp;
+    private javax.swing.JButton btnRestore;
     private javax.swing.JButton btnUser;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JToolBar toolBar;

@@ -22,11 +22,13 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+import passwordmanager.Global;
 import passwordmanager.bean.User;
 import passwordmanager.service.UserService;
 import passwordmanager.util.PasswordDigest;
@@ -235,8 +237,9 @@ public class UserLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Enter Password!");
             txtPassword.grabFocus();
         } else {
-            User user = UserService.readUser();
-            String password = null;
+            Preferences prefsRoot = Preferences.userRoot();
+            Preferences myPrefs = prefsRoot.node(Global.USER_PREF);
+            String password=null;
             try {
                 password = PasswordDigest.digest(txtPassword.getText());
             } catch (NoSuchAlgorithmException e) {
@@ -244,7 +247,7 @@ public class UserLogin extends javax.swing.JFrame {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            if (txtUserName.getText().equals(user.getUserName()) && password.equals(user.getPassword())) {
+            if (txtUserName.getText().equals(myPrefs.get("user", "")) && password.equals(myPrefs.get("password", ""))) {
                 dispose();
                 Main myFrame = new Main();
                 myFrame.setVisible(true);

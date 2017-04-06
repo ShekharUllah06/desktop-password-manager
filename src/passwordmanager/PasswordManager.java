@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import passwordmanager.bean.User;
 import passwordmanager.gui.CreateUser;
 import passwordmanager.gui.UserLogin;
@@ -46,6 +48,39 @@ public class PasswordManager {
             java.util.logging.Logger.getLogger(CreateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        System.out.println(Global.ACCOUNT_FILE);
+        File file = new File(Global.ACCOUNT_FILE);
+        if (!file.exists()) {
+            new File(Global.ACCOUNT_FILE_PATH).mkdirs();
+            try {
+                file.createNewFile();
+            } catch (Exception ex) {
+                Logger.getLogger(PasswordManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        Preferences prefsRoot = Preferences.userRoot();
+        Preferences myPrefs = prefsRoot.node(Global.USER_PREF);
+        
+        /*try {
+            myPrefs.clear();
+        } catch (BackingStoreException ex) {
+            Logger.getLogger(PasswordManager.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+ 
+        if (myPrefs.get("user", "").equals("")) {
+            CreateUser createUser = new CreateUser();
+            createUser.setLocationRelativeTo(null);
+            createUser.setVisible(true);
+        } else {
+            UserLogin userLogin = new UserLogin();
+            userLogin.setLocationRelativeTo(null);
+            userLogin.setVisible(true);
+        }
+        
+        //old code
+        
+        /*
+        
         File file = new File(Global.USER_FILE);
         if (!file.exists()) {
             try {
@@ -71,7 +106,7 @@ public class PasswordManager {
             UserLogin userLogin = new UserLogin();
             userLogin.setLocationRelativeTo(null);
             userLogin.setVisible(true);
-        }
+        }*/
 
     }
 

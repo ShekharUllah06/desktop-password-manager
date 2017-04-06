@@ -20,10 +20,14 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+import passwordmanager.Global;
 import passwordmanager.bean.User;
 import passwordmanager.service.UserService;
 import passwordmanager.util.PasswordDigest;
@@ -155,22 +159,21 @@ public class CreateUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Password must contain 4 or more charecters!", "Info", 1);
             txtPassword.grabFocus();
         } else {
-            User user = new User();
-            user.setUserName(txtUserName.getText());
+            Preferences prefsRoot = Preferences.userRoot();
+            Preferences myPrefs = prefsRoot.node(Global.USER_PREF);
+            myPrefs.put("user", txtUserName.getText().trim());
             try {
-                user.setPassword(PasswordDigest.digest(txtPassword.getText()));
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                myPrefs.put("password", PasswordDigest.digest(txtPassword.getText()));
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(CreateUser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(CreateUser.class.getName()).log(Level.SEVERE, null, ex);
             }
+            dispose();
+            Main myFrame = new Main();
+            myFrame.setVisible(true);
+            myFrame.setExtendedState(myFrame.getExtendedState() | myFrame.MAXIMIZED_BOTH);
 
-            if (UserService.insertUser(user)) {
-                dispose();
-                Main myFrame = new Main();
-                myFrame.setVisible(true);
-                myFrame.setExtendedState(myFrame.getExtendedState() | myFrame.MAXIMIZED_BOTH);
-            }
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
