@@ -37,7 +37,9 @@ public class Help extends javax.swing.JInternalFrame {
      */
     public Help() {
         initComponents();
-        populateTree();    
+        populateTree();
+        this.setTitle("Help");
+        loadHelpInit();
     }
 
     /**
@@ -56,6 +58,22 @@ public class Help extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadHelpInit(){
+        JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setPreferredSize(new Dimension(350, 300));
+        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+        java.net.URL helpURL = Launcher.class.getResource("/resources/help/user.htm");
+        try {
+            editorPane.setPage(helpURL);
+        } catch (IOException ioe) {
+            System.err.println("Attempted to read a bad URL: " + helpURL);
+        }
+        spltpnHelp.setRightComponent(editorScrollPane);
+        tree.setSelectionRow(1);
+    }
     private void populateTree() {
         DefaultMutableTreeNode parent = new DefaultMutableTreeNode("Help", true);
         DefaultMutableTreeNode welcome = new DefaultMutableTreeNode("Welcome");

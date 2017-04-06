@@ -212,18 +212,15 @@ public class UpdateUser extends javax.swing.JInternalFrame {
     }
 
      private void setButtonIcon() {
-        ImageIcon imageIcon = new ImageIcon("res/save.jpg");
-        Image image = imageIcon.getImage();
+        Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/save.jpg"));
         Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(newimg);
+        ImageIcon imageIcon = new ImageIcon(newimg);
         btnSave.setIcon(imageIcon);
 
-        imageIcon = new ImageIcon("res/clear.jpg");
-        image = imageIcon.getImage();
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/clear.jpg"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnClear.setIcon(imageIcon);
-
     }
      
      private void findUser(){
