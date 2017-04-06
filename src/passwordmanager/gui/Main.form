@@ -26,7 +26,7 @@
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="desktopPane">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane(){&#xa;    ImageIcon icon = new ImageIcon(&quot;res/background.jpg&quot;);&#xa;    Image image = icon.getImage();&#xa;&#xa;    Image newimage = image.getScaledInstance(1000,700,Image.SCALE_SMOOTH);&#xa;&#xa;    @Override&#xa;    protected void paintComponent(Graphics g)&#xa;    {&#xa;        super.paintComponent(g);&#xa;        g.drawImage(newimage, 0, 0,getWidth(), getHeight(), this);&#xa;    }&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane(){&#xa;    Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource(&quot;/resources/res/background.jpg&quot;));&#xa;    Image newimage = image.getScaledInstance(1000,700,Image.SCALE_SMOOTH);&#xa;&#xa;    //ImageIcon icon = new ImageIcon(&quot;res/background.jpg&quot;);&#xa;    //Image image = icon.getImage();&#xa;&#xa;    //Image newimage = image.getScaledInstance(1000,700,Image.SCALE_SMOOTH);&#xa;&#xa;    @Override&#xa;    protected void paintComponent(Graphics g)&#xa;    {&#xa;        super.paintComponent(g);&#xa;        g.drawImage(newimage, 0, 0,getWidth(), getHeight(), this);&#xa;    }&#xa;}"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

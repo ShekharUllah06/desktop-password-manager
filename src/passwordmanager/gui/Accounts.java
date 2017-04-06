@@ -19,6 +19,7 @@ package passwordmanager.gui;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -57,6 +58,9 @@ public class Accounts extends javax.swing.JInternalFrame {
         tableTest();
         clear();
         addPopupTable();
+        if(AccountService.readAccounts()!=null){
+            accountList=AccountService.readAccounts();
+        }
 
     }
 
@@ -347,30 +351,25 @@ public class Accounts extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGeneratePasswordActionPerformed
 
     private void setButtonIcon() {
-        ImageIcon imageIcon = new ImageIcon("res/save.jpg");
-        Image image = imageIcon.getImage();
+        Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/save.jpg"));
         Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(newimg);
+        ImageIcon imageIcon = new ImageIcon(newimg);
         btnSave.setIcon(imageIcon);
 
-        imageIcon = new ImageIcon("res/update.jpg");
-        image = imageIcon.getImage();
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/update.jpg"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnUpdate.setIcon(imageIcon);
-
-        imageIcon = new ImageIcon("res/delete.png");
-        image = imageIcon.getImage();
+        
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/delete.png"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnDelete.setIcon(imageIcon);
-
-        imageIcon = new ImageIcon("res/clear.jpg");
-        image = imageIcon.getImage();
+        
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/clear.jpg"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnClear.setIcon(imageIcon);
-
     }
 
     private void clear() {
@@ -484,7 +483,7 @@ public class Accounts extends javax.swing.JInternalFrame {
     private int updateId = 0;
 
     private final String secretKey = "Ami obhimani, chiro-khubdho hiyar katorota, batha sunibirh";
-    private ArrayList<Account> accountList = AccountService.readAccounts();
+    private ArrayList<Account> accountList = new ArrayList<>();
     //JTable tblAccountInfo;
     private ListSelectionModel listSelectionModel;
     private JTable table;

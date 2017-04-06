@@ -48,10 +48,13 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         desktopPane = new javax.swing.JDesktopPane(){
-            ImageIcon icon = new ImageIcon("res/background.jpg");
-            Image image = icon.getImage();
-
+            Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/background.jpg"));
             Image newimage = image.getScaledInstance(1000,700,Image.SCALE_SMOOTH);
+
+            //ImageIcon icon = new ImageIcon("res/background.jpg");
+            //Image image = icon.getImage();
+
+            //Image newimage = image.getScaledInstance(1000,700,Image.SCALE_SMOOTH);
 
             @Override
             protected void paintComponent(Graphics g)
@@ -110,7 +113,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
-         Accounts m = new Accounts();
+        Accounts m = new Accounts();
         m.setSize(700, 550);
         Dimension desktopSize = desktopPane.getSize();
         Dimension jInternalFrameSize = m.getSize();
@@ -129,11 +132,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAccountActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-       UpdateUser m = new UpdateUser();
+        UpdateUser m = new UpdateUser();
         Dimension desktopSize = desktopPane.getSize();
         Dimension jInternalFrameSize = m.getSize();
         m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
-            (desktopSize.height - jInternalFrameSize.height) / 2);
+                (desktopSize.height - jInternalFrameSize.height) / 2);
         m.setVisible(true);
         m.setClosable(true);
         m.setResizable(false);
@@ -153,7 +156,7 @@ public class Main extends javax.swing.JFrame {
         //Dimension desktopSize = desktopPane.getSize();
         //Dimension jInternalFrameSize = m.getSize();
         //m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
-            //(desktopSize.height - jInternalFrameSize.height) / 2);
+        //(desktopSize.height - jInternalFrameSize.height) / 2);
 
         m.setSize(desktopPane.getSize());
         m.setVisible(true);
@@ -202,23 +205,19 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-    
-     private void setButtonIcon() {
-        ImageIcon imageIcon = new ImageIcon("res/account.png");
-        Image image = imageIcon.getImage();
-        Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(newimg);
-        btnAccount.setIcon(imageIcon);
-        btnAccount.setSize(500, 30);
 
-        imageIcon = new ImageIcon("res/user_settings.png");
-        image = imageIcon.getImage();
+    private void setButtonIcon() {
+        Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/account.png"));
+        Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(newimg);
+        btnAccount.setIcon(imageIcon);
+
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/user_settings.png"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnUser.setIcon(imageIcon);
 
-        imageIcon = new ImageIcon("res/help.png");
-        image = imageIcon.getImage();
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/help.png"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnHelp.setIcon(imageIcon);

@@ -22,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
 import passwordmanager.bean.User;
 import passwordmanager.service.UserService;
 import passwordmanager.util.PasswordDigest;
@@ -38,8 +40,10 @@ public class CreateUser extends javax.swing.JFrame {
     public CreateUser() {
         initComponents();
         this.setTitle("Create User");
-        setButtonIcon() ;
+        setButtonIcon();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/user.png")));
+        JRootPane rootPane = SwingUtilities.getRootPane(btnSave);
+        rootPane.setDefaultButton(btnSave);
     }
 
     /**
@@ -211,15 +215,13 @@ public class CreateUser extends javax.swing.JFrame {
         });
     }
 
-     private void setButtonIcon() {
-        ImageIcon imageIcon = new ImageIcon("res/save.jpg");
-        Image image = imageIcon.getImage();
+    private void setButtonIcon() {
+        Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/save.jpg"));
         Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(newimg);
+        ImageIcon imageIcon = new ImageIcon(newimg);
         btnSave.setIcon(imageIcon);
 
-        imageIcon = new ImageIcon("res/clear.jpg");
-        image = imageIcon.getImage();
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/clear.jpg"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnClear.setIcon(imageIcon);
