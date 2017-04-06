@@ -257,28 +257,25 @@ public class UserLogin extends javax.swing.JFrame {
     }
 
     private void setImagePanel() {
-        ImageIcon imageIcon = new ImageIcon("res/l.png");
-        Image image = imageIcon.getImage();
+        Image image=Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/l.png"));
         Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(newimg);
+        ImageIcon imageIcon = new ImageIcon(newimg);
         JLabel label = new JLabel("", imageIcon, JLabel.CENTER);
-        //label.
-        label.setBackground(Color.RED);
-        //JPanel panel = new JPanel(new BorderLayout());
+
+        //label.setBackground(Color.RED);
+
         pnlImage.setLayout(new BorderLayout());
         pnlImage.add(label, BorderLayout.CENTER);
     }
     
      private void setButtonIcon() {
-        ImageIcon imageIcon = new ImageIcon("res/login.png");
-        Image image = imageIcon.getImage();
+        Image image=Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/login.png"));
         Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(newimg);
+        ImageIcon imageIcon = new ImageIcon(newimg);
         btnLogin.setIcon(imageIcon);
 
 
-        imageIcon = new ImageIcon("res/clear.jpg");
-        image = imageIcon.getImage();
+        image=Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/clear.jpg"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnClear.setIcon(imageIcon);
