@@ -13,12 +13,13 @@ import java.io.File;
  */
 public class Global {
 
+    public static String secretKey = "";
+    public static final String APP_NAME = "Password Manager";
     public static final String USER_FILE = "D://UserInfo.ser";
     public static final String ACCOUNT_FILE_PATH = System.getProperty("user.home")
             + File.separator + "PasswordManager"
             + File.separator + "Data";
     public static final String ACCOUNT_FILE = ACCOUNT_FILE_PATH
             + File.separator + "AccountInfo.ser";
-
     public static final String USER_PREF = "com.dev-station.passwordmanager.user.preference";
 }

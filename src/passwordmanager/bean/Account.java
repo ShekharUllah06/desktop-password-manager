@@ -27,6 +27,7 @@ public class Account implements Serializable {
     private String password;
     private String type;
     private String url;
+    private String secretKey;
 
     /**
      * default constructor
@@ -41,11 +42,12 @@ public class Account implements Serializable {
      * @param type
      * @param url
      */
-    public Account(String userName, String password, String type, String url) {
+    public Account(String userName, String password, String type, String url,String secretKey) {
         this.userName = userName;
         this.password = password;
         this.type = type;
         this.url = url;
+        this.secretKey=secretKey;
     }
 
     /**
@@ -112,10 +114,20 @@ public class Account implements Serializable {
         this.url = url;
     }
 
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
     @Override
     public String toString() {
-        return "Account{" + "userName=" + userName + ", password=" + password + ", type=" + type + ", url=" + url + '}';
+        return "Account{" + "userName=" + userName + ", password=" + password + ", type=" + type + ", url=" + url + ", secretKey=" + secretKey + '}';
     }
+    
+    
     
     
 }

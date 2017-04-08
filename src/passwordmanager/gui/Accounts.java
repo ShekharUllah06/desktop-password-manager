@@ -30,6 +30,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -39,6 +40,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
+import jdk.nashorn.internal.objects.Global;
 import passwordmanager.bean.Account;
 import passwordmanager.service.AccountService;
 import passwordmanager.util.AESEncryption;
@@ -64,6 +66,8 @@ public class Accounts extends javax.swing.JInternalFrame {
             accountList = AccountService.readAccounts();
         }
         populateTable();
+        JRootPane rootPane = SwingUtilities.getRootPane(btnSave);
+        rootPane.setDefaultButton(btnSave);
 
     }
 
@@ -300,6 +304,7 @@ public class Accounts extends javax.swing.JInternalFrame {
             account.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
             account.setType(txtType.getText());
             account.setUrl(txtUrl.getText());
+            account.setSecretKey(passwordmanager.Global.secretKey);
             accountList.add(account);
             if (AccountService.insertAccount(accountList)) {
                 JOptionPane.showMessageDialog(this, "Saved Successfully", "Password Manager", 1);
@@ -323,6 +328,7 @@ public class Accounts extends javax.swing.JInternalFrame {
             account.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
             account.setType(txtType.getText());
             account.setUrl(txtUrl.getText());
+            account.setSecretKey(passwordmanager.Global.secretKey);
             accountList.set(updateId, account);
             if (AccountService.insertAccount(accountList)) {
                 JOptionPane.showMessageDialog(this, "Updated Successfully", "Password Manager", 1);
@@ -391,6 +397,11 @@ public class Accounts extends javax.swing.JInternalFrame {
         tableData.clear();
         if (accountList != null) {
             for (int i = 0; i < accountList.size(); i++) {
+                if(!passwordmanager.Global.secretKey.equals(accountList.get(i).getSecretKey())){
+                    JOptionPane.showMessageDialog(this, "Secret Key Mismatch Error!!!", passwordmanager.Global.APP_NAME, 0);
+                    accountList=new ArrayList<>();
+                    break;
+                }
                 Vector<String> rowOne = new Vector<String>();
                 rowOne.addElement(accountList.get(i).getUserName());
                 rowOne.addElement(AESEncryption.decrypt(accountList.get(i).getPassword(), secretKey));

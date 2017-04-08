@@ -248,6 +248,7 @@ public class UserLogin extends javax.swing.JFrame {
                 e.printStackTrace();
             }
             if (txtUserName.getText().equals(myPrefs.get("user", "")) && password.equals(myPrefs.get("password", ""))) {
+                Global.secretKey=myPrefs.get("secretKey", "");
                 dispose();
                 Main myFrame = new Main();
                 myFrame.setVisible(true);

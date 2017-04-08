@@ -25,6 +25,8 @@ import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
 import passwordmanager.Global;
 import passwordmanager.bean.User;
 import passwordmanager.service.UserService;
@@ -45,6 +47,8 @@ public class UpdateUser extends javax.swing.JInternalFrame {
         setButtonIcon();
         findUser();
         this.setClosable(true);
+        JRootPane rootPane = SwingUtilities.getRootPane(btnSave);
+        rootPane.setDefaultButton(btnSave);
         //setIconImage(Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/user.png")));
     }
 

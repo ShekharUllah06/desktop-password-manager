@@ -81,6 +81,7 @@ public class Main extends javax.swing.JFrame {
         toolBar = new javax.swing.JToolBar();
         btnAccount = new javax.swing.JButton();
         btnUser = new javax.swing.JButton();
+        btnSecretKey = new javax.swing.JButton();
         btnBackup = new javax.swing.JButton();
         btnRestore = new javax.swing.JButton();
         btnHelp = new javax.swing.JButton();
@@ -112,6 +113,17 @@ public class Main extends javax.swing.JFrame {
             }
         });
         toolBar.add(btnUser);
+
+        btnSecretKey.setText("Secret Key");
+        btnSecretKey.setFocusable(false);
+        btnSecretKey.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSecretKey.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSecretKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSecretKeyActionPerformed(evt);
+            }
+        });
+        toolBar.add(btnSecretKey);
 
         btnBackup.setText("Backup");
         btnBackup.setFocusable(false);
@@ -215,14 +227,14 @@ public class Main extends javax.swing.JFrame {
 
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Save");
-            FileFilter filter = new FileNameExtensionFilter("ser file", new String[] {"ser"});
+            FileFilter filter = new FileNameExtensionFilter("ser file", new String[]{"ser"});
             fileChooser.setFileFilter(filter);
             fileChooser.addChoosableFileFilter(filter);
             int userSelection = fileChooser.showSaveDialog(this);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 try {
                     ArrayList<Account> accountList = AccountService.readAccounts();
-                    
+
                     FileOutputStream fos = new FileOutputStream(fileChooser.getSelectedFile() + ".ser");
                     ObjectOutputStream oos = new ObjectOutputStream(fos);
                     oos.writeObject(accountList);
@@ -243,6 +255,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackupActionPerformed
 
     private void btnRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestoreActionPerformed
+        boolean isSecretKeyMatch = true;
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Open");
         int userSelection = fileChooser.showOpenDialog(this);
@@ -252,25 +265,35 @@ public class Main extends javax.swing.JFrame {
                 ArrayList<Account> accountList2 = new ArrayList<>();
                 if (AccountService.readAccountsRestore(fileChooser.getSelectedFile().getAbsolutePath()) != null) {
                     accountList2 = AccountService.readAccountsRestore(fileChooser.getSelectedFile().getAbsolutePath());
-                    ArrayList<Account> accountList = new ArrayList<>();
-                    if (AccountService.readAccounts() != null) {
-                        accountList = AccountService.readAccounts();
-                        accountList2.addAll(accountList);
-                    }
-                    //If the data file not exist or for first time uses
-                    File file = new File(Global.ACCOUNT_FILE);
-                    if (!file.exists()) {
-                        new File(Global.ACCOUNT_FILE_PATH).mkdirs();
-                        try {
-                            file.createNewFile();
-                        } catch (Exception ex) {
-                            Logger.getLogger(PasswordManager.class.getName()).log(Level.SEVERE, null, ex);
+
+                    for (int i = 0; i < accountList2.size(); i++) {
+                        if (!passwordmanager.Global.secretKey.equals(accountList2.get(i).getSecretKey())) {
+                            JOptionPane.showMessageDialog(this, "Secret Key Mismatch Error!!!", passwordmanager.Global.APP_NAME, 0);
+                            isSecretKeyMatch = false;
+                            break;
                         }
                     }
-                    
-                    //Insert to main datafile
-                    if(AccountService.insertAccount(accountList2)){
-                        JOptionPane.showMessageDialog(this, "Data restored successfully!!", "Password Manager", 1);
+                    if (isSecretKeyMatch) {
+                        ArrayList<Account> accountList = new ArrayList<>();
+                        if (AccountService.readAccounts() != null) {
+                            accountList = AccountService.readAccounts();
+                            accountList2.addAll(accountList);
+                        }
+                        //If the data file not exist or for first time uses
+                        File file = new File(Global.ACCOUNT_FILE);
+                        if (!file.exists()) {
+                            new File(Global.ACCOUNT_FILE_PATH).mkdirs();
+                            try {
+                                file.createNewFile();
+                            } catch (Exception ex) {
+                                Logger.getLogger(PasswordManager.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+                        //Insert to main datafile
+                        if (AccountService.insertAccount(accountList2)) {
+                            JOptionPane.showMessageDialog(this, "Data restored successfully!!", "Password Manager", 1);
+                        }
                     }
 
                 } else {
@@ -281,6 +304,24 @@ public class Main extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnRestoreActionPerformed
+
+    private void btnSecretKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSecretKeyActionPerformed
+        SecretKeyUpdate m = new SecretKeyUpdate();
+        Dimension desktopSize = desktopPane.getSize();
+        Dimension jInternalFrameSize = m.getSize();
+        m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                (desktopSize.height - jInternalFrameSize.height) / 2);
+        m.setVisible(true);
+        m.setClosable(true);
+        m.setResizable(false);
+        m.setMaximizable(false);
+        m.setIconifiable(true);
+        desktopPane.add(m);
+        try {
+            m.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_btnSecretKeyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,6 +383,11 @@ public class Main extends javax.swing.JFrame {
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnRestore.setIcon(imageIcon);
+        
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/secretkey.png"));
+        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newimg);
+        btnSecretKey.setIcon(imageIcon);
 
     }
 
@@ -350,6 +396,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnBackup;
     private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnRestore;
+    private javax.swing.JButton btnSecretKey;
     private javax.swing.JButton btnUser;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JToolBar toolBar;

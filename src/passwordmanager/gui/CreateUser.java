@@ -66,8 +66,15 @@ public class CreateUser extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         btnSave = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        lblSecretKey = new javax.swing.JLabel();
+        txtSecretKey = new javax.swing.JTextField();
+        lblWarning = new javax.swing.JLabel();
+        lblWarinig2 = new javax.swing.JLabel();
+        lblWarinig3 = new javax.swing.JLabel();
+        lblWarinig4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(500, 320));
         setResizable(false);
 
         pnlUserInfo.setBorder(javax.swing.BorderFactory.createTitledBorder("User Info"));
@@ -90,45 +97,72 @@ public class CreateUser extends javax.swing.JFrame {
             }
         });
 
+        lblSecretKey.setText("Secret Key:");
+
+        lblWarning.setForeground(new java.awt.Color(255, 0, 0));
+        lblWarning.setText("Don't share your secret key with others & don't forget the secret key");
+
+        lblWarinig2.setForeground(new java.awt.Color(255, 0, 0));
+        lblWarinig2.setText("It is needed for security purpose ");
+
+        lblWarinig3.setForeground(new java.awt.Color(255, 0, 0));
+        lblWarinig3.setText("To reinstall the program you need the exact key as previous virsion");
+
+        lblWarinig4.setForeground(new java.awt.Color(255, 0, 0));
+        lblWarinig4.setText("If you don't want to use previous data then you can enter new key.");
+
         javax.swing.GroupLayout pnlUserInfoLayout = new javax.swing.GroupLayout(pnlUserInfo);
         pnlUserInfo.setLayout(pnlUserInfoLayout);
         pnlUserInfoLayout.setHorizontalGroup(
             pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlUserInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUserInfoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSecretKey)
+                    .addComponent(lblPassword)
+                    .addComponent(lblUserName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblWarinig4)
+                    .addComponent(lblWarinig2)
+                    .addComponent(lblWarning)
+                    .addComponent(lblWarinig3)
+                    .addComponent(txtSecretKey, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlUserInfoLayout.createSequentialGroup()
-                        .addComponent(lblUserName)
+                        .addComponent(btnSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlUserInfoLayout.createSequentialGroup()
-                        .addComponent(lblPassword)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPassword)
-                            .addGroup(pnlUserInfoLayout.createSequentialGroup()
-                                .addComponent(btnSave)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnClear)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnClear)))
+                .addGap(1397, 1397, 1397))
         );
         pnlUserInfoLayout.setVerticalGroup(
             pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUserInfoLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUserName)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPassword)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPassword))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSecretKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSecretKey))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblWarning)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblWarinig2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblWarinig3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblWarinig4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnClear))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnClear)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,15 +171,15 @@ public class CreateUser extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(pnlUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 444, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,22 +187,27 @@ public class CreateUser extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (txtUserName.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Enter User Name!", "Info", 1);
+            JOptionPane.showMessageDialog(this, "Enter user name!", "Info", 1);
             txtUserName.grabFocus();
         } else if (txtPassword.getText().length() < 4) {
             JOptionPane.showMessageDialog(this, "Password must contain 4 or more charecters!", "Info", 1);
             txtPassword.grabFocus();
+        } else if (txtSecretKey.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter your secret key!", "Info", 1);
+            txtSecretKey.grabFocus();
         } else {
             Preferences prefsRoot = Preferences.userRoot();
             Preferences myPrefs = prefsRoot.node(Global.USER_PREF);
             myPrefs.put("user", txtUserName.getText().trim());
             try {
                 myPrefs.put("password", PasswordDigest.digest(txtPassword.getText()));
+                myPrefs.put("secretKey", PasswordDigest.digest(txtSecretKey.getText().trim()));
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(CreateUser.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(CreateUser.class.getName()).log(Level.SEVERE, null, ex);
             }
+            Global.secretKey=myPrefs.get("secretKey", "");
             dispose();
             Main myFrame = new Main();
             myFrame.setVisible(true);
@@ -234,9 +273,15 @@ public class CreateUser extends javax.swing.JFrame {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblSecretKey;
     private javax.swing.JLabel lblUserName;
+    private javax.swing.JLabel lblWarinig2;
+    private javax.swing.JLabel lblWarinig3;
+    private javax.swing.JLabel lblWarinig4;
+    private javax.swing.JLabel lblWarning;
     private javax.swing.JPanel pnlUserInfo;
     private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtSecretKey;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }
