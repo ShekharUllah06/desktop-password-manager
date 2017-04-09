@@ -22,6 +22,8 @@ Desktop Password Manager is an application which provides user with a safe envir
   * You need to change the value of secretKey variable at package gui-> Accounts.java
   * By default we use following value for the variable
   
+  ```java
   private final String secretKey = "Ami obhimani, chiro-khubdho hiyar katorota, batha sunibirh";
+  ```
   
   
