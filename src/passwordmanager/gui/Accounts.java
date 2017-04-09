@@ -20,11 +20,8 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
-<<<<<<< HEAD
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-=======
->>>>>>> master
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -33,10 +30,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-<<<<<<< HEAD
 import javax.swing.JRootPane;
-=======
->>>>>>> master
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -46,10 +40,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
-<<<<<<< HEAD
 import jdk.nashorn.internal.objects.Global;
-=======
->>>>>>> master
 import passwordmanager.bean.Account;
 import passwordmanager.service.AccountService;
 import passwordmanager.util.AESEncryption;
@@ -71,18 +62,12 @@ public class Accounts extends javax.swing.JInternalFrame {
         tableTest();
         clear();
         addPopupTable();
-<<<<<<< HEAD
         if (AccountService.readAccounts() != null) {
             accountList = AccountService.readAccounts();
         }
         populateTable();
         JRootPane rootPane = SwingUtilities.getRootPane(btnSave);
         rootPane.setDefaultButton(btnSave);
-=======
-        if(AccountService.readAccounts()!=null){
-            accountList=AccountService.readAccounts();
-        }
->>>>>>> master
 
     }
 
@@ -319,10 +304,7 @@ public class Accounts extends javax.swing.JInternalFrame {
             account.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
             account.setType(txtType.getText());
             account.setUrl(txtUrl.getText());
-<<<<<<< HEAD
             account.setSecretKey(passwordmanager.Global.secretKey);
-=======
->>>>>>> master
             accountList.add(account);
             if (AccountService.insertAccount(accountList)) {
                 JOptionPane.showMessageDialog(this, "Saved Successfully", "Password Manager", 1);
@@ -346,10 +328,7 @@ public class Accounts extends javax.swing.JInternalFrame {
             account.setPassword(AESEncryption.encrypt(txtPassword.getText(), secretKey));
             account.setType(txtType.getText());
             account.setUrl(txtUrl.getText());
-<<<<<<< HEAD
             account.setSecretKey(passwordmanager.Global.secretKey);
-=======
->>>>>>> master
             accountList.set(updateId, account);
             if (AccountService.insertAccount(accountList)) {
                 JOptionPane.showMessageDialog(this, "Updated Successfully", "Password Manager", 1);
@@ -390,20 +369,12 @@ public class Accounts extends javax.swing.JInternalFrame {
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnUpdate.setIcon(imageIcon);
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> master
         image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/delete.png"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnDelete.setIcon(imageIcon);
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> master
         image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/clear.jpg"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
@@ -419,24 +390,18 @@ public class Accounts extends javax.swing.JInternalFrame {
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
         table.clearSelection();
-<<<<<<< HEAD
         txtUserName.grabFocus();
-=======
->>>>>>> master
     }
 
     private void populateTable() {
         tableData.clear();
         if (accountList != null) {
             for (int i = 0; i < accountList.size(); i++) {
-<<<<<<< HEAD
                 if(!passwordmanager.Global.secretKey.equals(accountList.get(i).getSecretKey())){
                     JOptionPane.showMessageDialog(this, "Secret Key Mismatch Error!!!", passwordmanager.Global.APP_NAME, 0);
                     accountList=new ArrayList<>();
                     break;
                 }
-=======
->>>>>>> master
                 Vector<String> rowOne = new Vector<String>();
                 rowOne.addElement(accountList.get(i).getUserName());
                 rowOne.addElement(AESEncryption.decrypt(accountList.get(i).getPassword(), secretKey));
@@ -462,16 +427,11 @@ public class Accounts extends javax.swing.JInternalFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
                 StringSelection selection = new StringSelection(model.getValueAt(table.getSelectedRow(), 0).toString());
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
                 //System.out.println(table.getSelectedRow() + " : " + table.getSelectedColumn());
                 //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
-=======
-                System.out.println(table.getSelectedRow() + " : " + table.getSelectedColumn());
-                JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
->>>>>>> master
             }
         });
         copyPassword.addActionListener(new ActionListener() {
@@ -544,15 +504,9 @@ public class Accounts extends javax.swing.JInternalFrame {
         pnlRecords.setLayout(new BorderLayout());
         pnlRecords.add(tablePane, BorderLayout.CENTER);
     }
-<<<<<<< HEAD
 
     private int updateId = 0;
 
-=======
-
-    private int updateId = 0;
-
->>>>>>> master
     private final String secretKey = "Ami obhimani, chiro-khubdho hiyar katorota, batha sunibirh";
     private ArrayList<Account> accountList = new ArrayList<>();
     //JTable tblAccountInfo;

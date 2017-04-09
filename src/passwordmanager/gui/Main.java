@@ -20,7 +20,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-<<<<<<< HEAD
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -38,10 +37,6 @@ import passwordmanager.Global;
 import passwordmanager.PasswordManager;
 import passwordmanager.bean.Account;
 import passwordmanager.service.AccountService;
-=======
-import java.io.IOException;
-import javax.swing.ImageIcon;
->>>>>>> master
 
 /**
  *
@@ -70,7 +65,6 @@ public class Main extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane(){
             Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/background.jpg"));
             Image newimage = image.getScaledInstance(1000,700,Image.SCALE_SMOOTH);
-<<<<<<< HEAD
 
             //ImageIcon icon = new ImageIcon("res/background.jpg");
             //Image image = icon.getImage();
@@ -162,63 +156,6 @@ public class Main extends javax.swing.JFrame {
                 btnHelpActionPerformed(evt);
             }
         });
-=======
-
-            //ImageIcon icon = new ImageIcon("res/background.jpg");
-            //Image image = icon.getImage();
-
-            //Image newimage = image.getScaledInstance(1000,700,Image.SCALE_SMOOTH);
-
-            @Override
-            protected void paintComponent(Graphics g)
-            {
-                super.paintComponent(g);
-                g.drawImage(newimage, 0, 0,getWidth(), getHeight(), this);
-            }
-        };
-        toolBar = new javax.swing.JToolBar();
-        btnAccount = new javax.swing.JButton();
-        btnUser = new javax.swing.JButton();
-        btnHelp = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Password Manager");
-        getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
-
-        toolBar.setRollover(true);
-
-        btnAccount.setText("Account");
-        btnAccount.setFocusable(false);
-        btnAccount.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAccount.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAccount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAccountActionPerformed(evt);
-            }
-        });
-        toolBar.add(btnAccount);
-
-        btnUser.setText("Settings");
-        btnUser.setFocusable(false);
-        btnUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserActionPerformed(evt);
-            }
-        });
-        toolBar.add(btnUser);
-
-        btnHelp.setText("Help");
-        btnHelp.setFocusable(false);
-        btnHelp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnHelp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHelpActionPerformed(evt);
-            }
-        });
->>>>>>> master
         toolBar.add(btnHelp);
 
         getContentPane().add(toolBar, java.awt.BorderLayout.PAGE_START);
@@ -284,7 +221,6 @@ public class Main extends javax.swing.JFrame {
         } catch (java.beans.PropertyVetoException e) {
         }
     }//GEN-LAST:event_btnHelpActionPerformed
-<<<<<<< HEAD
 
     private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
         if (AccountService.readAccounts() != null) {
@@ -386,8 +322,6 @@ public class Main extends javax.swing.JFrame {
         } catch (java.beans.PropertyVetoException e) {
         }
     }//GEN-LAST:event_btnSecretKeyActionPerformed
-=======
->>>>>>> master
 
     /**
      * @param args the command line arguments
@@ -440,7 +374,6 @@ public class Main extends javax.swing.JFrame {
         imageIcon = new ImageIcon(newimg);
         btnHelp.setIcon(imageIcon);
 
-<<<<<<< HEAD
         image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/backup.png"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
@@ -456,20 +389,14 @@ public class Main extends javax.swing.JFrame {
         imageIcon = new ImageIcon(newimg);
         btnSecretKey.setIcon(imageIcon);
 
-=======
->>>>>>> master
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAccount;
-<<<<<<< HEAD
     private javax.swing.JButton btnBackup;
     private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnRestore;
     private javax.swing.JButton btnSecretKey;
-=======
-    private javax.swing.JButton btnHelp;
->>>>>>> master
     private javax.swing.JButton btnUser;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JToolBar toolBar;

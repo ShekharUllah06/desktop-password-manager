@@ -72,7 +72,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserActionPerformed"/>
           </Events>
         </Component>
-<<<<<<< HEAD
         <Component class="javax.swing.JButton" name="btnSecretKey">
           <Properties>
             <Property name="text" type="java.lang.String" value="Secret Key"/>
@@ -106,8 +105,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRestoreActionPerformed"/>
           </Events>
         </Component>
-=======
->>>>>>> master
         <Component class="javax.swing.JButton" name="btnHelp">
           <Properties>
             <Property name="text" type="java.lang.String" value="Help"/>

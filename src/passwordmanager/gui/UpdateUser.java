@@ -218,11 +218,7 @@ public class UpdateUser extends javax.swing.JInternalFrame {
         });
     }
 
-<<<<<<< HEAD
     private void setButtonIcon() {
-=======
-     private void setButtonIcon() {
->>>>>>> master
         Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/save.jpg"));
         Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(newimg);
@@ -232,7 +228,6 @@ public class UpdateUser extends javax.swing.JInternalFrame {
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnClear.setIcon(imageIcon);
-<<<<<<< HEAD
     }
 
     private void findUser() {
@@ -240,8 +235,6 @@ public class UpdateUser extends javax.swing.JInternalFrame {
         Preferences myPrefs = prefsRoot.node(Global.USER_PREF);
         txtUserName.setText(myPrefs.get("user", ""));
         txtPassword.grabFocus();
-=======
->>>>>>> master
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;

@@ -27,10 +27,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
-<<<<<<< HEAD
 import passwordmanager.Global;
-=======
->>>>>>> master
 import passwordmanager.bean.User;
 import passwordmanager.service.UserService;
 import passwordmanager.util.PasswordDigest;

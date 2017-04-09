@@ -9,11 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-<<<<<<< HEAD
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
-=======
->>>>>>> master
 import passwordmanager.bean.User;
 import passwordmanager.gui.CreateUser;
 import passwordmanager.gui.UserLogin;
@@ -51,7 +48,6 @@ public class PasswordManager {
             java.util.logging.Logger.getLogger(CreateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-<<<<<<< HEAD
         System.out.println(Global.ACCOUNT_FILE);
         File file = new File(Global.ACCOUNT_FILE);
         if (!file.exists()) {
@@ -82,34 +78,6 @@ public class PasswordManager {
         }
         
         
-=======
-        File file = new File(Global.USER_FILE);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(PasswordManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        file = new File(Global.ACCOUNT_FILE);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(PasswordManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        User user = UserService.readUser();
-        if (user == null) {
-            CreateUser createUser = new CreateUser();
-            createUser.setLocationRelativeTo(null);
-            createUser.setVisible(true);
-        } else {
-            UserLogin userLogin = new UserLogin();
-            userLogin.setLocationRelativeTo(null);
-            userLogin.setVisible(true);
-        }
->>>>>>> master
 
     }
 
