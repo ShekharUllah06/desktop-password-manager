@@ -70,6 +70,7 @@
     nbproject/build-impl.xml file. 
 
     -->
+<<<<<<< HEAD
     <target name="package-for-store" depends="jar">
 
         <!-- Change the value of this property to be the name of your JAR,
@@ -106,4 +107,6 @@
         <delete file="${store.dir}/temp_final.jar"/>
 
     </target>
+=======
+>>>>>>> master
 </project>

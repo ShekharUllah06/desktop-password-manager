@@ -5,13 +5,17 @@
  */
 package passwordmanager;
 
+<<<<<<< HEAD
 import java.io.File;
 
+=======
+>>>>>>> master
 /**
  *
  * @author Abdullah Shekhar
  */
 public class Global {
+<<<<<<< HEAD
 
     public static String secretKey = "";
     public static final String APP_NAME = "Password Manager";
@@ -22,4 +26,8 @@ public class Global {
     public static final String ACCOUNT_FILE = ACCOUNT_FILE_PATH
             + File.separator + "AccountInfo.ser";
     public static final String USER_PREF = "com.dev-station.passwordmanager.user.preference";
+=======
+    public static final String USER_FILE="D://UserInfo.ser";
+    public static final String ACCOUNT_FILE="D://AccountInfo.ser";
+>>>>>>> master
 }

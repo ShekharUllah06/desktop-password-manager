@@ -77,6 +77,7 @@ public class AccountService {
         }
         return accountList;
     }
+<<<<<<< HEAD
     
     public static ArrayList<Account> readAccountsRestore(String fileName) {
         ArrayList<Account> accountList = null;
@@ -104,4 +105,6 @@ public class AccountService {
         }
         return accountList;
     }
+=======
+>>>>>>> master
 }
