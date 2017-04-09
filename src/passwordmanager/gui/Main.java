@@ -384,7 +384,7 @@ public class Main extends javax.swing.JFrame {
         imageIcon = new ImageIcon(newimg);
         btnRestore.setIcon(imageIcon);
         
-        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/secretkey.png"));
+        image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/secretKey.png"));
         newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnSecretKey.setIcon(imageIcon);

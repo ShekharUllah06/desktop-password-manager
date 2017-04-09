@@ -250,6 +250,10 @@ public class UserLogin extends javax.swing.JFrame {
             if (txtUserName.getText().equals(myPrefs.get("user", "")) && password.equals(myPrefs.get("password", ""))) {
                 Global.secretKey=myPrefs.get("secretKey", "");
                 dispose();
+                /*MainForm t=new MainForm();
+                t.setVisible(true);
+                t.setExtendedState(t.getExtendedState() | t.MAXIMIZED_BOTH);*/
+
                 Main myFrame = new Main();
                 myFrame.setVisible(true);
                 myFrame.setExtendedState(myFrame.getExtendedState() | myFrame.MAXIMIZED_BOTH);
