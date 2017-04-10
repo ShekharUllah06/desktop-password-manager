@@ -78,8 +78,11 @@ public class UserLogin extends javax.swing.JFrame {
 
         lblUserName.setText("User Name:");
 
+        txtUserName.setText("shekhar");
+
         jLabel1.setText("Password:");
 
+        txtPassword.setText("1234");
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyPressed(evt);

@@ -82,17 +82,9 @@ public class Accounts extends javax.swing.JInternalFrame {
 
         pnlAccountInfo = new javax.swing.JPanel();
         lblUserName = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lblType = new javax.swing.JLabel();
-        lblUrl = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
-        txtType = new javax.swing.JTextField();
-        txtUrl = new javax.swing.JTextField();
-        btnSave = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
         btnGeneratePassword = new javax.swing.JButton();
         chkNumeric = new javax.swing.JCheckBox();
         chkLowerCase = new javax.swing.JCheckBox();
@@ -100,8 +92,32 @@ public class Accounts extends javax.swing.JInternalFrame {
         chkSpecialChar = new javax.swing.JCheckBox();
         lblLength = new javax.swing.JLabel();
         spnrLength = new javax.swing.JSpinner();
+        lblUrl = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        txtUrl = new javax.swing.JTextField();
+        btnClear = new javax.swing.JButton();
+        lblType = new javax.swing.JLabel();
+        txtType = new javax.swing.JTextField();
         pnlRecords = new javax.swing.JPanel();
         pnlTest = new javax.swing.JPanel();
+        lblSecurityQuestion = new javax.swing.JLabel();
+        txtSequrityQuestion = new javax.swing.JTextField();
+        lblAnswer = new javax.swing.JLabel();
+        txtAnswer = new javax.swing.JTextField();
+        btnAddSecurityData = new javax.swing.JButton();
+        lstSecurity = new java.awt.List();
+        lblRecoveryContact = new javax.swing.JLabel();
+        txtSequrityQuestion1 = new javax.swing.JTextField();
+        btnAddRecovery = new javax.swing.JButton();
+        lxtRecoveryContact = new java.awt.List();
+        btnUpdateSecurityData = new javax.swing.JButton();
+        btnDeleteSecurityData = new javax.swing.JButton();
+        btnClearSecurityData = new javax.swing.JButton();
+        btnUpdateRecoveryContact = new javax.swing.JButton();
+        btnDeleteRecoveryContact = new javax.swing.JButton();
+        btnClearRecoveryContact = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(568, 549));
 
@@ -109,39 +125,7 @@ public class Accounts extends javax.swing.JInternalFrame {
 
         lblUserName.setText("User Name:");
 
-        jLabel2.setText("Password:");
-
-        lblType.setText("Type:");
-
-        lblUrl.setText("URL:");
-
-        btnSave.setText("Save");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnClear.setText("Clear");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
-            }
-        });
+        lblPassword.setText("Password:");
 
         btnGeneratePassword.setText("Generate Password");
         btnGeneratePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -161,9 +145,41 @@ public class Accounts extends javax.swing.JInternalFrame {
 
         chkSpecialChar.setText("Special Char");
 
-        lblLength.setText("Length:");
+        lblLength.setText("Length");
 
         spnrLength.setModel(new javax.swing.SpinnerNumberModel(6, 6, 25, 1));
+
+        lblUrl.setText("URL:");
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        lblType.setText("Type:");
 
         javax.swing.GroupLayout pnlAccountInfoLayout = new javax.swing.GroupLayout(pnlAccountInfo);
         pnlAccountInfo.setLayout(pnlAccountInfoLayout);
@@ -173,45 +189,45 @@ public class Accounts extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAccountInfoLayout.createSequentialGroup()
+                        .addComponent(lblPassword)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlAccountInfoLayout.createSequentialGroup()
+                                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkNumeric)
+                                    .addComponent(lblLength))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlAccountInfoLayout.createSequentialGroup()
+                                        .addComponent(chkLowerCase)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(chkUpperCase)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(chkSpecialChar))
+                                    .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnGeneratePassword)))
+                    .addGroup(pnlAccountInfoLayout.createSequentialGroup()
                         .addComponent(lblUserName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlAccountInfoLayout.createSequentialGroup()
                         .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(lblType)
-                            .addComponent(lblUrl))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUrl)
+                            .addComponent(lblUrl)
+                            .addComponent(lblType))
+                        .addGap(32, 32, 32)
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlAccountInfoLayout.createSequentialGroup()
-                                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlAccountInfoLayout.createSequentialGroup()
-                                        .addComponent(btnSave)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnUpdate)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnDelete)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnClear))
-                                    .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnlAccountInfoLayout.createSequentialGroup()
-                                        .addComponent(chkNumeric)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chkLowerCase)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chkUpperCase)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chkSpecialChar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblLength)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnGeneratePassword)))
-                                .addGap(0, 33, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addComponent(btnSave)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnUpdate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnClear))
+                            .addComponent(txtType, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                            .addComponent(txtUrl))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         pnlAccountInfoLayout.setVerticalGroup(
             pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,17 +238,20 @@ public class Accounts extends javax.swing.JInternalFrame {
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkNumeric)
                     .addComponent(chkLowerCase)
                     .addComponent(chkUpperCase)
-                    .addComponent(chkSpecialChar)
+                    .addComponent(chkSpecialChar))
+                .addGap(2, 2, 2)
+                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLength)
-                    .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGeneratePassword))
+                    .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGeneratePassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblType)
@@ -253,15 +272,107 @@ public class Accounts extends javax.swing.JInternalFrame {
         pnlRecords.setBorder(javax.swing.BorderFactory.createTitledBorder("Records"));
         pnlRecords.setLayout(new java.awt.BorderLayout());
 
+        pnlTest.setBorder(javax.swing.BorderFactory.createTitledBorder("Account Recovery Data"));
+
+        lblSecurityQuestion.setText("Security Question:");
+
+        lblAnswer.setText("Answer:");
+
+        btnAddSecurityData.setText("Add");
+
+        lblRecoveryContact.setText("Recovery Contact:");
+
+        btnAddRecovery.setText("Add");
+
+        btnUpdateSecurityData.setText("Update");
+
+        btnDeleteSecurityData.setText("Delete");
+
+        btnClearSecurityData.setText("Clear");
+
+        btnUpdateRecoveryContact.setText("Update");
+
+        btnDeleteRecoveryContact.setText("Delete");
+
+        btnClearRecoveryContact.setText("Clear");
+
         javax.swing.GroupLayout pnlTestLayout = new javax.swing.GroupLayout(pnlTest);
         pnlTest.setLayout(pnlTestLayout);
         pnlTestLayout.setHorizontalGroup(
             pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 141, Short.MAX_VALUE)
+            .addGroup(pnlTestLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTestLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lstSecurity, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(pnlTestLayout.createSequentialGroup()
+                            .addComponent(lblSecurityQuestion)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtSequrityQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlTestLayout.createSequentialGroup()
+                            .addComponent(lblAnswer)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlTestLayout.createSequentialGroup()
+                                    .addComponent(btnAddSecurityData)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnUpdateSecurityData)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnDeleteSecurityData)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnClearSecurityData))
+                                .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnlTestLayout.createSequentialGroup()
+                        .addComponent(lblRecoveryContact)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lxtRecoveryContact, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlTestLayout.createSequentialGroup()
+                                .addComponent(btnAddRecovery)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnUpdateRecoveryContact)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeleteRecoveryContact)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnClearRecoveryContact)
+                                .addGap(0, 28, Short.MAX_VALUE))
+                            .addComponent(txtSequrityQuestion1))))
+                .addContainerGap())
         );
         pnlTestLayout.setVerticalGroup(
             pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 213, Short.MAX_VALUE)
+            .addGroup(pnlTestLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSecurityQuestion)
+                    .addComponent(txtSequrityQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAnswer))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddSecurityData)
+                    .addComponent(btnUpdateSecurityData)
+                    .addComponent(btnDeleteSecurityData)
+                    .addComponent(btnClearSecurityData))
+                .addGap(3, 3, 3)
+                .addComponent(lstSecurity, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRecoveryContact)
+                    .addComponent(txtSequrityQuestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddRecovery)
+                    .addComponent(btnUpdateRecoveryContact)
+                    .addComponent(btnDeleteRecoveryContact)
+                    .addComponent(btnClearRecoveryContact))
+                .addGap(2, 2, 2)
+                .addComponent(lxtRecoveryContact, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -271,20 +382,20 @@ public class Accounts extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE))
             .addComponent(pnlRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
+                    .addComponent(pnlTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(pnlRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
         );
 
         pack();
@@ -516,25 +627,41 @@ public class Accounts extends javax.swing.JInternalFrame {
     Vector<String> columnNames = new Vector<String>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddRecovery;
+    private javax.swing.JButton btnAddSecurityData;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnClearRecoveryContact;
+    private javax.swing.JButton btnClearSecurityData;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteRecoveryContact;
+    private javax.swing.JButton btnDeleteSecurityData;
     private javax.swing.JButton btnGeneratePassword;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnUpdateRecoveryContact;
+    private javax.swing.JButton btnUpdateSecurityData;
     private javax.swing.JCheckBox chkLowerCase;
     private javax.swing.JCheckBox chkNumeric;
     private javax.swing.JCheckBox chkSpecialChar;
     private javax.swing.JCheckBox chkUpperCase;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblAnswer;
     private javax.swing.JLabel lblLength;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblRecoveryContact;
+    private javax.swing.JLabel lblSecurityQuestion;
     private javax.swing.JLabel lblType;
     private javax.swing.JLabel lblUrl;
     private javax.swing.JLabel lblUserName;
+    private java.awt.List lstSecurity;
+    private java.awt.List lxtRecoveryContact;
     private javax.swing.JPanel pnlAccountInfo;
     private javax.swing.JPanel pnlRecords;
     private javax.swing.JPanel pnlTest;
     private javax.swing.JSpinner spnrLength;
+    private javax.swing.JTextField txtAnswer;
     private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtSequrityQuestion;
+    private javax.swing.JTextField txtSequrityQuestion1;
     private javax.swing.JTextField txtType;
     private javax.swing.JTextField txtUrl;
     private javax.swing.JTextField txtUserName;

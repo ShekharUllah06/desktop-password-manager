@@ -168,8 +168,10 @@ public class Main extends javax.swing.JFrame {
         m.setSize(700, 550);
         Dimension desktopSize = desktopPane.getSize();
         Dimension jInternalFrameSize = m.getSize();
-        m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
-                (desktopSize.height - jInternalFrameSize.height) / 2);
+        //m.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                //(desktopSize.height - jInternalFrameSize.height) / 2);
+        //m.setExtendedState(m.getExtendedState() | m.MAXIMIZED_BOTH);
+        m.setSize(desktopPane.getSize());
         m.setVisible(true);
         m.setClosable(true);
         m.setResizable(true);
