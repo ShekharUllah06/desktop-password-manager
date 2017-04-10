@@ -28,6 +28,9 @@ public class Account implements Serializable {
     private String type;
     private String url;
     private String secretKey;
+    private String recoveryContact;
+    private String securityQuestion;
+    private String securityAnswer;
 
     /**
      * default constructor
@@ -35,20 +38,18 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    /**
-     * constructor
-     * @param userName
-     * @param password
-     * @param type
-     * @param url
-     */
-    public Account(String userName, String password, String type, String url,String secretKey) {
+    public Account(String userName, String password, String type, String url, String secretKey, String recoveryContact, String securityQuestion, String securityAnswer) {
         this.userName = userName;
         this.password = password;
         this.type = type;
         this.url = url;
-        this.secretKey=secretKey;
+        this.secretKey = secretKey;
+        this.recoveryContact = recoveryContact;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
+
+    
 
     /**
      * get userName
@@ -122,12 +123,32 @@ public class Account implements Serializable {
         this.secretKey = secretKey;
     }
 
+    public String getRecoveryContact() {
+        return recoveryContact;
+    }
+
+    public void setRecoveryContact(String recoveryContact) {
+        this.recoveryContact = recoveryContact;
+    }
+
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
+
     @Override
     public String toString() {
-        return "Account{" + "userName=" + userName + ", password=" + password + ", type=" + type + ", url=" + url + ", secretKey=" + secretKey + '}';
+        return "Account{" + "userName=" + userName + ", password=" + password + ", type=" + type + ", url=" + url + ", secretKey=" + secretKey + ", recoveryContact=" + recoveryContact + ", securityQuestion=" + securityQuestion + ", securityAnswer=" + securityAnswer + '}';
     }
-    
-    
-    
-    
 }

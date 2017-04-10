@@ -32,6 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -40,8 +41,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.internal.objects.Global;
 import passwordmanager.bean.Account;
+
 import passwordmanager.service.AccountService;
 import passwordmanager.util.AESEncryption;
 import passwordmanager.util.PasswordGenerator;
@@ -68,7 +69,7 @@ public class Accounts extends javax.swing.JInternalFrame {
         populateTable();
         JRootPane rootPane = SwingUtilities.getRootPane(btnSave);
         rootPane.setDefaultButton(btnSave);
-
+        setComponentFocus();
     }
 
     /**
@@ -100,24 +101,14 @@ public class Accounts extends javax.swing.JInternalFrame {
         btnClear = new javax.swing.JButton();
         lblType = new javax.swing.JLabel();
         txtType = new javax.swing.JTextField();
-        pnlRecords = new javax.swing.JPanel();
         pnlTest = new javax.swing.JPanel();
         lblSecurityQuestion = new javax.swing.JLabel();
         txtSequrityQuestion = new javax.swing.JTextField();
         lblAnswer = new javax.swing.JLabel();
         txtAnswer = new javax.swing.JTextField();
-        btnAddSecurityData = new javax.swing.JButton();
-        lstSecurity = new java.awt.List();
         lblRecoveryContact = new javax.swing.JLabel();
-        txtSequrityQuestion1 = new javax.swing.JTextField();
-        btnAddRecovery = new javax.swing.JButton();
-        lxtRecoveryContact = new java.awt.List();
-        btnUpdateSecurityData = new javax.swing.JButton();
-        btnDeleteSecurityData = new javax.swing.JButton();
-        btnClearSecurityData = new javax.swing.JButton();
-        btnUpdateRecoveryContact = new javax.swing.JButton();
-        btnDeleteRecoveryContact = new javax.swing.JButton();
-        btnClearRecoveryContact = new javax.swing.JButton();
+        txtRecoveryContact = new javax.swing.JTextField();
+        pnlRecords = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(568, 549));
 
@@ -181,6 +172,53 @@ public class Accounts extends javax.swing.JInternalFrame {
 
         lblType.setText("Type:");
 
+        pnlTest.setBorder(javax.swing.BorderFactory.createTitledBorder("Account Recovery Data"));
+
+        lblSecurityQuestion.setText("Security Question:");
+
+        lblAnswer.setText("Answer:");
+
+        lblRecoveryContact.setText("Recovery Contact:");
+
+        javax.swing.GroupLayout pnlTestLayout = new javax.swing.GroupLayout(pnlTest);
+        pnlTest.setLayout(pnlTestLayout);
+        pnlTestLayout.setHorizontalGroup(
+            pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTestLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlTestLayout.createSequentialGroup()
+                        .addComponent(lblSecurityQuestion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtSequrityQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTestLayout.createSequentialGroup()
+                        .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAnswer)
+                            .addComponent(lblRecoveryContact))
+                        .addGap(10, 10, 10)
+                        .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRecoveryContact, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlTestLayout.setVerticalGroup(
+            pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTestLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSecurityQuestion)
+                    .addComponent(txtSequrityQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAnswer))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRecoveryContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRecoveryContact))
+                .addGap(193, 193, 193))
+        );
+
         javax.swing.GroupLayout pnlAccountInfoLayout = new javax.swing.GroupLayout(pnlAccountInfo);
         pnlAccountInfo.setLayout(pnlAccountInfoLayout);
         pnlAccountInfoLayout.setHorizontalGroup(
@@ -227,175 +265,73 @@ public class Accounts extends javax.swing.JInternalFrame {
                                 .addComponent(btnClear))
                             .addComponent(txtType, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                             .addComponent(txtUrl))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(pnlTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlAccountInfoLayout.setVerticalGroup(
             pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAccountInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUserName)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPassword)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkNumeric)
-                    .addComponent(chkLowerCase)
-                    .addComponent(chkUpperCase)
-                    .addComponent(chkSpecialChar))
-                .addGap(2, 2, 2)
-                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLength)
-                    .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGeneratePassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblType)
-                    .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUrl)
-                    .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete)
-                    .addComponent(btnClear))
+                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlTest, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlAccountInfoLayout.createSequentialGroup()
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblUserName)
+                            .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPassword)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkNumeric)
+                            .addComponent(chkLowerCase)
+                            .addComponent(chkUpperCase)
+                            .addComponent(chkSpecialChar))
+                        .addGap(2, 2, 2)
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblLength)
+                            .addComponent(spnrLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGeneratePassword)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblType)
+                            .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblUrl)
+                            .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSave)
+                            .addComponent(btnUpdate)
+                            .addComponent(btnDelete)
+                            .addComponent(btnClear))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlRecords.setBorder(javax.swing.BorderFactory.createTitledBorder("Records"));
         pnlRecords.setLayout(new java.awt.BorderLayout());
 
-        pnlTest.setBorder(javax.swing.BorderFactory.createTitledBorder("Account Recovery Data"));
-
-        lblSecurityQuestion.setText("Security Question:");
-
-        lblAnswer.setText("Answer:");
-
-        btnAddSecurityData.setText("Add");
-
-        lblRecoveryContact.setText("Recovery Contact:");
-
-        btnAddRecovery.setText("Add");
-
-        btnUpdateSecurityData.setText("Update");
-
-        btnDeleteSecurityData.setText("Delete");
-
-        btnClearSecurityData.setText("Clear");
-
-        btnUpdateRecoveryContact.setText("Update");
-
-        btnDeleteRecoveryContact.setText("Delete");
-
-        btnClearRecoveryContact.setText("Clear");
-
-        javax.swing.GroupLayout pnlTestLayout = new javax.swing.GroupLayout(pnlTest);
-        pnlTest.setLayout(pnlTestLayout);
-        pnlTestLayout.setHorizontalGroup(
-            pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTestLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTestLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lstSecurity, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(pnlTestLayout.createSequentialGroup()
-                            .addComponent(lblSecurityQuestion)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSequrityQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlTestLayout.createSequentialGroup()
-                            .addComponent(lblAnswer)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnlTestLayout.createSequentialGroup()
-                                    .addComponent(btnAddSecurityData)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnUpdateSecurityData)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnDeleteSecurityData)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnClearSecurityData))
-                                .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(pnlTestLayout.createSequentialGroup()
-                        .addComponent(lblRecoveryContact)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lxtRecoveryContact, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlTestLayout.createSequentialGroup()
-                                .addComponent(btnAddRecovery)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnUpdateRecoveryContact)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDeleteRecoveryContact)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnClearRecoveryContact)
-                                .addGap(0, 28, Short.MAX_VALUE))
-                            .addComponent(txtSequrityQuestion1))))
-                .addContainerGap())
-        );
-        pnlTestLayout.setVerticalGroup(
-            pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTestLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSecurityQuestion)
-                    .addComponent(txtSequrityQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAnswer))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddSecurityData)
-                    .addComponent(btnUpdateSecurityData)
-                    .addComponent(btnDeleteSecurityData)
-                    .addComponent(btnClearSecurityData))
-                .addGap(3, 3, 3)
-                .addComponent(lstSecurity, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRecoveryContact)
-                    .addComponent(txtSequrityQuestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddRecovery)
-                    .addComponent(btnUpdateRecoveryContact)
-                    .addComponent(btnDeleteRecoveryContact)
-                    .addComponent(btnClearRecoveryContact))
-                .addGap(2, 2, 2)
-                .addComponent(lxtRecoveryContact, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
-            .addComponent(pnlRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(pnlRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlRecords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -416,6 +352,9 @@ public class Accounts extends javax.swing.JInternalFrame {
             account.setType(txtType.getText());
             account.setUrl(txtUrl.getText());
             account.setSecretKey(passwordmanager.Global.secretKey);
+            account.setSecurityQuestion(txtSequrityQuestion.getText());
+            account.setSecurityAnswer(txtAnswer.getText());
+            account.setRecoveryContact(txtRecoveryContact.getText());
             accountList.add(account);
             if (AccountService.insertAccount(accountList)) {
                 JOptionPane.showMessageDialog(this, "Saved Successfully", "Password Manager", 1);
@@ -440,6 +379,9 @@ public class Accounts extends javax.swing.JInternalFrame {
             account.setType(txtType.getText());
             account.setUrl(txtUrl.getText());
             account.setSecretKey(passwordmanager.Global.secretKey);
+            account.setSecurityQuestion(txtSequrityQuestion.getText());
+            account.setSecurityAnswer(txtAnswer.getText());
+            account.setRecoveryContact(txtRecoveryContact.getText());
             accountList.set(updateId, account);
             if (AccountService.insertAccount(accountList)) {
                 JOptionPane.showMessageDialog(this, "Updated Successfully", "Password Manager", 1);
@@ -472,22 +414,22 @@ public class Accounts extends javax.swing.JInternalFrame {
 
     private void setButtonIcon() {
         Image image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/save.jpg"));
-        Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(newimg);
         btnSave.setIcon(imageIcon);
 
         image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/update.jpg"));
-        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        newimg = image.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnUpdate.setIcon(imageIcon);
 
         image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/delete.png"));
-        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        newimg = image.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnDelete.setIcon(imageIcon);
 
         image = Toolkit.getDefaultToolkit().getImage(UserLogin.class.getResource("/resources/res/clear.jpg"));
-        newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        newimg = image.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         btnClear.setIcon(imageIcon);
     }
@@ -497,6 +439,9 @@ public class Accounts extends javax.swing.JInternalFrame {
         txtPassword.setText("");
         txtType.setText("");
         txtUrl.setText("");
+        txtSequrityQuestion.setText("");
+        txtAnswer.setText("");
+        txtRecoveryContact.setText("");
         btnSave.setEnabled(true);
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
@@ -508,9 +453,9 @@ public class Accounts extends javax.swing.JInternalFrame {
         tableData.clear();
         if (accountList != null) {
             for (int i = 0; i < accountList.size(); i++) {
-                if(!passwordmanager.Global.secretKey.equals(accountList.get(i).getSecretKey())){
+                if (!passwordmanager.Global.secretKey.equals(accountList.get(i).getSecretKey())) {
                     JOptionPane.showMessageDialog(this, "Secret Key Mismatch Error!!!", passwordmanager.Global.APP_NAME, 0);
-                    accountList=new ArrayList<>();
+                    accountList = new ArrayList<>();
                     break;
                 }
                 Vector<String> rowOne = new Vector<String>();
@@ -518,6 +463,9 @@ public class Accounts extends javax.swing.JInternalFrame {
                 rowOne.addElement(AESEncryption.decrypt(accountList.get(i).getPassword(), secretKey));
                 rowOne.addElement(accountList.get(i).getType());
                 rowOne.addElement(accountList.get(i).getUrl());
+                rowOne.addElement(accountList.get(i).getSecurityQuestion());
+                rowOne.addElement(accountList.get(i).getSecurityAnswer());
+                rowOne.addElement(accountList.get(i).getRecoveryContact());
 
                 tableData.add(rowOne);
             }
@@ -533,6 +481,9 @@ public class Accounts extends javax.swing.JInternalFrame {
         JMenuItem copyUserName = new JMenuItem("Copy User Name");
         JMenuItem copyPassword = new JMenuItem("Copy Password");
         JMenuItem copyURL = new JMenuItem("Copy URL");
+        JMenuItem copySecurityQuestion = new JMenuItem("copy Security Question");
+        JMenuItem copySecurityAnswer = new JMenuItem("Copy Security Answer");
+        JMenuItem copyRecoveryContact = new JMenuItem("Copy Recovery Contact");
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         copyUserName.addActionListener(new ActionListener() {
 
@@ -565,9 +516,42 @@ public class Accounts extends javax.swing.JInternalFrame {
                 //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
             }
         });
+        copySecurityQuestion.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringSelection selection = new StringSelection(model.getValueAt(table.getSelectedRow(), 4).toString());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+                //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+            }
+        });
+        copySecurityAnswer.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringSelection selection = new StringSelection(model.getValueAt(table.getSelectedRow(), 5).toString());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+                //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+            }
+        });
+        copyRecoveryContact.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringSelection selection = new StringSelection(model.getValueAt(table.getSelectedRow(), 6).toString());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+                //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+            }
+        });
         popupMenu.add(copyUserName);
         popupMenu.add(copyPassword);
         popupMenu.add(copyURL);
+        popupMenu.add(copySecurityQuestion);
+        popupMenu.add(copySecurityAnswer);
+        popupMenu.add(copyRecoveryContact);
         table.setComponentPopupMenu(popupMenu);
         popupMenu.addPopupMenuListener(new PopupMenuListener() {
 
@@ -603,6 +587,9 @@ public class Accounts extends javax.swing.JInternalFrame {
         columnNames.addElement("Password");
         columnNames.addElement("Type");
         columnNames.addElement("URL");
+        columnNames.addElement("Security Question");
+        columnNames.addElement("Answer");
+        columnNames.addElement("Recovery Contact");
         table = new JTable(tableData, columnNames);
         populateTable();
         listSelectionModel = table.getSelectionModel();
@@ -614,6 +601,13 @@ public class Accounts extends javax.swing.JInternalFrame {
         //pnlTest.add(tablePane, BorderLayout.CENTER);
         pnlRecords.setLayout(new BorderLayout());
         pnlRecords.add(tablePane, BorderLayout.CENTER);
+
+    }
+
+    private void setComponentFocus() {
+        txtUserName.setNextFocusableComponent(txtPassword);
+        txtUrl.setNextFocusableComponent(txtSequrityQuestion);
+        txtRecoveryContact.setNextFocusableComponent(btnSave);
     }
 
     private int updateId = 0;
@@ -627,19 +621,11 @@ public class Accounts extends javax.swing.JInternalFrame {
     Vector<String> columnNames = new Vector<String>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddRecovery;
-    private javax.swing.JButton btnAddSecurityData;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnClearRecoveryContact;
-    private javax.swing.JButton btnClearSecurityData;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnDeleteRecoveryContact;
-    private javax.swing.JButton btnDeleteSecurityData;
     private javax.swing.JButton btnGeneratePassword;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton btnUpdateRecoveryContact;
-    private javax.swing.JButton btnUpdateSecurityData;
     private javax.swing.JCheckBox chkLowerCase;
     private javax.swing.JCheckBox chkNumeric;
     private javax.swing.JCheckBox chkSpecialChar;
@@ -652,16 +638,14 @@ public class Accounts extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblType;
     private javax.swing.JLabel lblUrl;
     private javax.swing.JLabel lblUserName;
-    private java.awt.List lstSecurity;
-    private java.awt.List lxtRecoveryContact;
     private javax.swing.JPanel pnlAccountInfo;
     private javax.swing.JPanel pnlRecords;
     private javax.swing.JPanel pnlTest;
     private javax.swing.JSpinner spnrLength;
     private javax.swing.JTextField txtAnswer;
     private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtRecoveryContact;
     private javax.swing.JTextField txtSequrityQuestion;
-    private javax.swing.JTextField txtSequrityQuestion1;
     private javax.swing.JTextField txtType;
     private javax.swing.JTextField txtUrl;
     private javax.swing.JTextField txtUserName;
@@ -686,6 +670,21 @@ public class Accounts extends javax.swing.JInternalFrame {
                 }
                 try {
                     txtUrl.setText(model.getValueAt(table.getSelectedRow(), 3).toString());
+                } catch (NullPointerException npe) {
+
+                }
+                try {
+                    txtSequrityQuestion.setText(model.getValueAt(table.getSelectedRow(), 4).toString());
+                } catch (NullPointerException npe) {
+
+                }
+                try {
+                    txtAnswer.setText(model.getValueAt(table.getSelectedRow(), 5).toString());
+                } catch (NullPointerException npe) {
+
+                }
+                try {
+                    txtRecoveryContact.setText(model.getValueAt(table.getSelectedRow(), 6).toString());
                 } catch (NullPointerException npe) {
 
                 }
