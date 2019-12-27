@@ -8,7 +8,7 @@ Desktop Password Manager is an application which provides user with a safe envir
   * robust & user friendly.
   
   ## you can download from
-  http://dpm.dev-station.com/
+  https://dpm.shekharabdullah.com/
   
   ## some screenshots of this application
   ![Alt text](http://dpm.dev-station.com/assets/img/account.png "Desktop Password Manager")
